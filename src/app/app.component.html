@@ -1,0 +1,17 @@
+<!--                                                                                                          -->
+<!-- Copyright (c) 2017, Arjuna Technologies Limited, Newcastle upon Tyne, England,                           -->
+<!--                     Open Lab, Newcastle University, Newcastle upon Tyne, England,                        -->
+<!--                     Institute of Health and Society, Newcastle University, Newcastle upon Tyne, England. -->
+<!--                     All rights reserved.                                                                 -->
+<!--                                                                                                          -->
+
+<md-toolbar color="primary">
+    <span> SILVER Admin Portal </span>
+    <span class="toolbar-spacer"></span>
+    <button md-button (click)="openLoginDialog()">
+        <md-icon>person</md-icon>
+        <span *ngIf="username">{{username}}</span>
+        <span *ngIf="! username">Login</span>
+    </button>
+</md-toolbar>
+

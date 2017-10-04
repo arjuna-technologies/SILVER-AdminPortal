@@ -1,0 +1,29 @@
+<!--                                                                                                          -->
+<!-- Copyright (c) 2017, Arjuna Technologies Limited, Newcastle upon Tyne, England,                           -->
+<!--                     Open Lab, Newcastle University, Newcastle upon Tyne, England,                        -->
+<!--                     Institute of Health and Society, Newcastle University, Newcastle upon Tyne, England. -->
+<!--                     All rights reserved.                                                                 -->
+<!--                                                                                                          -->
+
+<h2 md-dialog-title>Login</h2>
+<md-card>
+    <md-card-content>
+        <md-form-field>
+            <input #username mdInput placeholder="Username" type="text" value="">
+        </md-form-field>
+        <br>
+        <md-form-field>
+            <input #password mdInput placeholder="Password" type="password" value="">
+        </md-form-field>
+    </md-card-content>
+</md-card>
+<md-dialog-actions>
+    <button md-button [md-dialog-close]="username.value">
+        <md-icon>person</md-icon>
+        <span>Login</span>
+    </button>
+    <button md-button md-dialog-close>
+        <md-icon>clear</md-icon>
+        <span>Cancel</span>
+    </button>
+</md-dialog-actions>
