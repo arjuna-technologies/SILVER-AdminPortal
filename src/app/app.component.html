@@ -15,9 +15,47 @@
     </button>
 </mat-toolbar>
 
-<mat-card>
-    <mat-card-title>Test</mat-card-title>
-    <mat-card-content>
-        Test
-    </mat-card-content>
-</mat-card>
+<mat-tab-group>
+    <mat-tab label="Consent Types">
+        <mat-card>
+            <mat-card-title>Consent Types</mat-card-title>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item *ngFor="let consentTemplate of consentTemplates">
+                        <mat-icon mat-list-icon>folder</mat-icon>
+                        <span> {{consentTemplate.name}} </span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Consent Details">
+        <mat-card>
+            <mat-card-title>Test</mat-card-title>
+            <mat-card-content>
+                Test
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Consent Purposes">
+        <mat-card>
+            <mat-card-title>Test</mat-card-title>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Access Credentials">
+        <mat-card>
+            <mat-card-title>SILVER CA Cerificates</mat-card-title>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>cloud_download</mat-icon>
+                        <a mat-button href="asserts/ca-silver.crt">SILVER Portal and Service CA Certificate</a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

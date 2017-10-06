@@ -10,6 +10,9 @@ import { MatDialog } from '@angular/material';
 
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
+import { ConsentTemplateModel } from './model/consent-template-model';
+import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
+
 @Component
 ({
     selector:    'silver-root',
@@ -19,10 +22,13 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 export class AppComponent
 {
     public username: string;
+    public consentTemplates: ConsentTemplateModel[];
 
-    public constructor(private dialog: MatDialog)
+    public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService)
     {
         this.username = '';
+
+        this.loadConsentTemplates();
     }
 
     public openLoginDialog(): void
@@ -35,5 +41,27 @@ export class AppComponent
         {
             this.username = '';
         }
+    }
+
+    private loadConsentTemplates(): void
+    {
+        this.consentTypeDefLoaderService.getConsentTypeDefs()
+            .then
+            (
+                (consentTypeDefs) =>
+                {
+                    this.consentTemplates = [];
+                    for (const consentTypeDef of consentTypeDefs)
+                    {
+                        const consentTemplates: ConsentTemplateModel = new ConsentTemplateModel();
+
+                        consentTemplates.name          = consentTypeDef.name;
+                        consentTemplates.consentTypeId = consentTypeDef.id;
+
+                        this.consentTemplates.push(consentTemplates);
+                    }
+                }
+            )
+            .catch(() => { this.consentTemplates = [] } );
     }
 }
