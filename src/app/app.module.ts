@@ -1,16 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import 'hammerjs';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdToolbarModule } from '@angular/material';
-import { MdIconModule } from '@angular/material';
-import { MdButtonModule } from '@angular/material';
-import { MdCardModule } from '@angular/material';
-import { MdInputModule } from '@angular/material';
-import { MdDialogModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
@@ -27,12 +27,12 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
         BrowserModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
-        MdToolbarModule,
-        MdIconModule,
-        MdButtonModule,
-        MdCardModule,
-        MdInputModule,
-        MdDialogModule
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatDialogModule
     ],
     entryComponents:
     [

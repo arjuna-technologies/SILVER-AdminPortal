@@ -6,7 +6,7 @@
 //
 
 import { Component } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
@@ -20,7 +20,7 @@ export class AppComponent
 {
     public username: string;
 
-    public constructor(private dialog: MdDialog)
+    public constructor(private dialog: MatDialog)
     {
         this.username = '';
     }

@@ -5,19 +5,19 @@
 <!--                     All rights reserved.                                                                 -->
 <!--                                                                                                          -->
 
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
     <span> SILVER Admin Portal </span>
     <span class="toolbar-spacer"></span>
-    <button md-button (click)="openLoginDialog()">
-        <md-icon>person</md-icon>
+    <button mat-button (click)="openLoginDialog()">
+        <mat-icon>person</mat-icon>
         <span *ngIf="username">{{username}}</span>
         <span *ngIf="! username">Login</span>
     </button>
-</md-toolbar>
+</mat-toolbar>
 
-<md-card>
-    <md-card-title>Test</md-card-title>
-    <md-card-content>
+<mat-card>
+    <mat-card-title>Test</mat-card-title>
+    <mat-card-content>
         Test
-    </md-card-content>
-</md-card>
+    </mat-card-content>
+</mat-card>
