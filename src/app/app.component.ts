@@ -10,8 +10,9 @@ import { MatDialog } from '@angular/material';
 
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
-import { ConsentTemplateModel } from './model/consent-template-model';
+import { ConsentTypeModel } from './model/consent-type-model';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
+import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
 @Component
 ({
@@ -21,14 +22,15 @@ import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-load
 })
 export class AppComponent
 {
-    public username: string;
-    public consentTemplates: ConsentTemplateModel[];
+    public username:     string;
+    public consentTypes: ConsentTypeModel[];
+    public rendererText: string;
 
-    public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService)
+    public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
     {
-        this.username = '';
-
-        this.loadConsentTemplates();
+        this.username     = '';
+        this.consentTypes = [];
+        this.rendererText = 'JSON';
     }
 
     public openLoginDialog(): void
@@ -36,32 +38,68 @@ export class AppComponent
         if (this.username === '')
         {
             const loginDialogRef = this.dialog.open(LoginDialogComponent);
+            loginDialogRef.afterClosed().subscribe((username) => { this.login(username, ''); });
+        }
+        else
+            this.logout();
+    }
+
+    private login(username: string, password: string): void
+    {
+        if (username === 'Admin')
+        {
+            this.username = username;
+
+            this.loadConsentTypes();
         }
         else
         {
-            this.username = '';
+            this.username     = '';
+            this.consentTypes = [];
+            this.rendererText = 'JSON';
         }
     }
 
-    private loadConsentTemplates(): void
+    private logout(): void
+    {
+        this.username = '';
+    }
+
+    private loadConsentTypes(): void
     {
         this.consentTypeDefLoaderService.getConsentTypeDefs()
             .then
             (
                 (consentTypeDefs) =>
                 {
-                    this.consentTemplates = [];
+                    this.consentTypes = [];
                     for (const consentTypeDef of consentTypeDefs)
                     {
-                        const consentTemplates: ConsentTemplateModel = new ConsentTemplateModel();
+                        const consentTypes: ConsentTypeModel = new ConsentTypeModel();
 
-                        consentTemplates.name          = consentTypeDef.name;
-                        consentTemplates.consentTypeId = consentTypeDef.id;
+                        consentTypes.name          = consentTypeDef.name;
+                        consentTypes.consentTypeId = consentTypeDef.id;
 
-                        this.consentTemplates.push(consentTemplates);
+                        console.log('loadConsentType:' + consentTypes.consentTypeId);
+
+                        this.consentTypes.push(consentTypes);
                     }
                 }
             )
-            .catch(() => { this.consentTemplates = [] } );
+            .catch(() => { this.consentTypes = []; } );
+    }
+
+    private loadConsentRenderer(consentTypeId: string): void
+    {
+        console.log('loadConsentRendererText:' + consentTypeId);
+        this.consentRendererDefLoaderService.getConsentRendererDefByType(consentTypeId, 'StyleA')
+            .then
+            (
+                (consentRendererDef) =>
+                {
+                    this.rendererText = consentRendererDef.id;
+                }
+            )
+            .catch(() => { this.rendererText = 'Error' } );
     }
 }

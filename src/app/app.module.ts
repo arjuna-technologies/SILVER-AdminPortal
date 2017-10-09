@@ -27,6 +27,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 import { DatasourcesConfigService } from './config/datasources-config.service';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
+import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
 @NgModule
 ({
@@ -57,7 +58,8 @@ import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-load
     providers:
     [
         DatasourcesConfigService,
-        ConsentTypeDefLoaderService
+        ConsentTypeDefLoaderService,
+        ConsentRendererDefLoaderService
     ],
     bootstrap:
     [

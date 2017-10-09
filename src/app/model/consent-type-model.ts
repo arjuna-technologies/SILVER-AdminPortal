@@ -5,7 +5,7 @@
 //                     All rights reserved.
 //
 
-export class ConsentTemplateModel
+export class ConsentTypeModel
 {
     public name:          string;
     public consentTypeId: string;

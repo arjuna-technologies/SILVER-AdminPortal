@@ -15,33 +15,38 @@
     </button>
 </mat-toolbar>
 
-<mat-tab-group>
+<mat-tab-group *ngIf="username">
     <mat-tab label="Consent Types">
         <mat-card>
             <mat-card-title>Consent Types</mat-card-title>
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item *ngFor="let consentTemplate of consentTemplates">
-                        <mat-icon mat-list-icon>folder</mat-icon>
-                        <span> {{consentTemplate.name}} </span>
+                    <mat-list-item *ngFor="let consentType of consentTypes">
+                        <button mat-button (click)="loadConsentRenderer(consentType.consentTypeId)">
+                            <mat-icon mat-list-icon>folder</mat-icon>
+                            <span> {{consentType.name}} </span>
+                        </button>
                     </mat-list-item>
                 </mat-list>
+                <mat-form-field>
+                     <textarea matInput placeholder="Renderer Text">{{rendererText}}</textarea>
+                </mat-form-field>
             </mat-card-content>
         </mat-card>
     </mat-tab>
     <mat-tab label="Consent Details">
         <mat-card>
-            <mat-card-title>Test</mat-card-title>
+            <mat-card-title>Consent Details</mat-card-title>
             <mat-card-content>
-                Test
+                Text text ...
             </mat-card-content>
         </mat-card>
     </mat-tab>
     <mat-tab label="Consent Purposes">
         <mat-card>
-            <mat-card-title>Test</mat-card-title>
+            <mat-card-title>Consent Purposes</mat-card-title>
             <mat-card-content>
-                
+                Text text ...
             </mat-card-content>
         </mat-card>
     </mat-tab>
