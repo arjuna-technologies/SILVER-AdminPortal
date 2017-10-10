@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 import { ConsentTypeModel } from './model/consent-type-model';
+import { ConsentTypesModel } from './model/consent-types-model';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
@@ -22,15 +23,23 @@ import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-
 })
 export class AppComponent
 {
-    public username:     string;
-    public consentTypes: ConsentTypeModel[];
-    public rendererText: string;
+    public displayedColumns: string[];
+
+    public username:       string;
+    public consentTypes:   ConsentTypesModel;
+    public consentTypeId:  string;
+    public consentDetail:  string;
+    public consentPurpose: string;
 
     public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
     {
-        this.username     = '';
-        this.consentTypes = [];
-        this.rendererText = 'JSON';
+        this.displayedColumns = [ 'name', 'published', 'deprecated' ];
+
+        this.username       = '';
+        this.consentTypes   = null;
+        this.consentTypeId  = '';
+        this.consentDetail  = '';
+        this.consentPurpose = '';
     }
 
     public openLoginDialog(): void
@@ -54,15 +63,21 @@ export class AppComponent
         }
         else
         {
-            this.username     = '';
-            this.consentTypes = [];
-            this.rendererText = 'JSON';
+            this.username       = '';
+            this.consentTypes   = null;
+            this.consentTypeId  = '';
+            this.consentDetail  = '';
+            this.consentPurpose = '';
         }
     }
 
     private logout(): void
     {
-        this.username = '';
+        this.username       = '';
+        this.consentTypes   = null;
+        this.consentTypeId  = '';
+        this.consentDetail  = '';
+        this.consentPurpose = '';
     }
 
     private loadConsentTypes(): void
@@ -72,34 +87,36 @@ export class AppComponent
             (
                 (consentTypeDefs) =>
                 {
-                    this.consentTypes = [];
+                    let consentTypes = [];
                     for (const consentTypeDef of consentTypeDefs)
                     {
-                        const consentTypes: ConsentTypeModel = new ConsentTypeModel();
+                        const consentType: ConsentTypeModel = new ConsentTypeModel();
 
-                        consentTypes.name          = consentTypeDef.name;
-                        consentTypes.consentTypeId = consentTypeDef.id;
+                        consentType.id        = consentTypeDef.id;
+                        consentType.name      = consentTypeDef.name;
+                        consentType.creatable = true;
+                        consentType.active    = false;
 
-                        console.log('loadConsentType:' + consentTypes.consentTypeId);
-
-                        this.consentTypes.push(consentTypes);
+                        consentTypes.push(consentType);
                     }
+
+                    this.consentTypes = new ConsentTypesModel(consentTypes);
                 }
             )
-            .catch(() => { this.consentTypes = []; } );
+            .catch(() => { this.consentTypes = null; } );
     }
 
     private loadConsentRenderer(consentTypeId: string): void
     {
-        console.log('loadConsentRendererText:' + consentTypeId);
+        this.consentTypeId = consentTypeId;
+
         this.consentRendererDefLoaderService.getConsentRendererDefByType(consentTypeId, 'StyleA')
             .then
             (
                 (consentRendererDef) =>
                 {
-                    this.rendererText = consentRendererDef.id;
                 }
             )
-            .catch(() => { this.rendererText = 'Error' } );
+            .catch(() => { } );
     }
 }

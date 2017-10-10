@@ -16,10 +16,13 @@ import 'hammerjs';
 import { MatToolbarModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatListModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -45,10 +48,13 @@ import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatTableModule,
         MatTabsModule,
         MatCardModule,
         MatListModule,
+        MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
         MatDialogModule
     ],
     entryComponents:

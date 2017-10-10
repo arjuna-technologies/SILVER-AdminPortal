@@ -7,12 +7,16 @@
 
 export class ConsentTypeModel
 {
-    public name:          string;
-    public consentTypeId: string;
+    public id:        string;
+    public name:      string;
+    public creatable: boolean;
+    public active:    boolean;
 
     public constructor()
     {
-        this.name          = '';
-        this.consentTypeId = '';
+        this.id        = '';
+        this.name      = '';
+        this.creatable = false;
+        this.active    = false;
     }
 }

@@ -8,59 +8,78 @@
 <mat-toolbar color="primary">
     <span> SILVER Admin Portal </span>
     <span class="toolbar-spacer"></span>
+    <a mat-button href="asserts/ca-silver.crt" download="ca-silver.crt">
+        <mat-icon>cloud_download</mat-icon>
+        <span> SILVER CA Certificate </span>
+    </a>
     <button mat-button (click)="openLoginDialog()">
         <mat-icon>person</mat-icon>
-        <span *ngIf="username">{{username}}</span>
-        <span *ngIf="! username">Login</span>
+        <span *ngIf="username"> {{username}} </span>
+        <span *ngIf="! username"> Login </span>
     </button>
 </mat-toolbar>
 
-<mat-tab-group *ngIf="username">
-    <mat-tab label="Consent Types">
-        <mat-card>
-            <mat-card-title>Consent Types</mat-card-title>
-            <mat-card-content>
-                <mat-list>
-                    <mat-list-item *ngFor="let consentType of consentTypes">
-                        <button mat-button (click)="loadConsentRenderer(consentType.consentTypeId)">
-                            <mat-icon mat-list-icon>folder</mat-icon>
-                            <span> {{consentType.name}} </span>
-                        </button>
-                    </mat-list-item>
-                </mat-list>
-                <mat-form-field>
-                     <textarea matInput placeholder="Renderer Text">{{rendererText}}</textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
-    </mat-tab>
-    <mat-tab label="Consent Details">
-        <mat-card>
-            <mat-card-title>Consent Details</mat-card-title>
-            <mat-card-content>
-                Text text ...
-            </mat-card-content>
-        </mat-card>
-    </mat-tab>
-    <mat-tab label="Consent Purposes">
-        <mat-card>
-            <mat-card-title>Consent Purposes</mat-card-title>
-            <mat-card-content>
-                Text text ...
-            </mat-card-content>
-        </mat-card>
-    </mat-tab>
-    <mat-tab label="Access Credentials">
-        <mat-card>
-            <mat-card-title>SILVER CA Cerificates</mat-card-title>
-            <mat-card-content>
-                <mat-list>
-                    <mat-list-item>
-                        <mat-icon mat-list-icon>cloud_download</mat-icon>
-                        <a mat-button href="asserts/ca-silver.crt" download="ca-silver.crt">SILVER Portal and Service CA Certificate</a>
-                    </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
-    </mat-tab>
-</mat-tab-group>
+<mat-card *ngIf="username">
+    <mat-card-title *ngIf="! consentTypeId">Available Consent Types</mat-card-title>
+
+    <mat-card-content *ngIf="! consentTypeId">
+        <mat-table [dataSource]="consentTypes">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-button (click)="loadConsentRenderer(row.id)">
+                        <mat-icon>folder_open</mat-icon>
+                        <span> {{row.name}} </span>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="creatable">
+                <mat-header-cell *matHeaderCellDef> Creatable </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="! row.creatable">check_box_outline_blank</mat-icon>
+                    <mat-icon *ngIf="row.creatable">check_box</mat-icon>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="active">
+                <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-icon *ngIf="! row.active">check_box_outline_blank</mat-icon>
+                    <mat-icon *ngIf="row.active">check_box</mat-icon>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active' ]"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active' ]"></mat-row>
+        </mat-table>
+    </mat-card-content>
+    <mat-card-content *ngIf="consentTypeId">
+        <mat-tab-group>
+            <mat-tab label="Consent Types">
+                <mat-card>
+                    <mat-card-title>Consent Types</mat-card-title>
+                    <mat-card-content>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Consent Detail">
+                <mat-card>
+                    <mat-card-title>Consent Detail</mat-card-title>
+                    <mat-card-content>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Consent Detail Text">{{consentDetail}}</textarea>
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Consent Purpose">
+                <mat-card>
+                    <mat-card-title>Consent Purpose</mat-card-title>
+                    <mat-card-content>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>
