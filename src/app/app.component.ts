@@ -25,21 +25,23 @@ export class AppComponent
 {
     public displayedColumns: string[];
 
-    public username:       string;
-    public consentTypes:   ConsentTypesModel;
-    public consentTypeId:  string;
-    public consentDetail:  string;
-    public consentPurpose: string;
+    public username:         string;
+    public consentTypes:     ConsentTypesModel;
+    public consentTypeId:    string;
+    public consentTypeName:  string;
+    public consentDetail:    string;
+    public consentPurpose:   string;
 
     public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
     {
         this.displayedColumns = [ 'name', 'published', 'deprecated' ];
 
-        this.username       = '';
-        this.consentTypes   = null;
-        this.consentTypeId  = '';
-        this.consentDetail  = '';
-        this.consentPurpose = '';
+        this.username        = '';
+        this.consentTypes    = null;
+        this.consentTypeId   = '';
+        this.consentTypeName = '';
+        this.consentDetail   = '';
+        this.consentPurpose  = '';
     }
 
     public openLoginDialog(): void
@@ -63,21 +65,23 @@ export class AppComponent
         }
         else
         {
-            this.username       = '';
-            this.consentTypes   = null;
-            this.consentTypeId  = '';
-            this.consentDetail  = '';
-            this.consentPurpose = '';
+            this.username        = '';
+            this.consentTypes    = null;
+            this.consentTypeId   = '';
+            this.consentTypeName = '';
+            this.consentDetail   = '';
+            this.consentPurpose  = '';
         }
     }
 
     private logout(): void
     {
-        this.username       = '';
-        this.consentTypes   = null;
-        this.consentTypeId  = '';
-        this.consentDetail  = '';
-        this.consentPurpose = '';
+        this.username        = '';
+        this.consentTypes    = null;
+        this.consentTypeId   = '';
+        this.consentTypeName = '';
+        this.consentDetail   = '';
+        this.consentPurpose  = '';
     }
 
     private loadConsentTypes(): void
@@ -106,11 +110,12 @@ export class AppComponent
             .catch(() => { this.consentTypes = null; } );
     }
 
-    private loadConsentRenderer(consentTypeId: string): void
+    private loadConsentRenderer(consentType: ConsentTypeModel): void
     {
-        this.consentTypeId = consentTypeId;
+        this.consentTypeId   = consentType.id;
+        this.consentTypeName = consentType.name;
 
-        this.consentRendererDefLoaderService.getConsentRendererDefByType(consentTypeId, 'StyleA')
+        this.consentRendererDefLoaderService.getConsentRendererDefByType(this.consentTypeId, 'StyleA')
             .then
             (
                 (consentRendererDef) =>
