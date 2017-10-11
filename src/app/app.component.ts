@@ -14,6 +14,8 @@ import { LoginFailureDialogComponent } from './login-failure-dialog/login-failur
 import { ConsentTypeModel } from './model/consent-type-model';
 import { ConsentTypesModel } from './model/consent-types-model';
 import { ConsentRendererComponentModel } from './model/consent-renderercomponent-model';
+import { TextComponentRendererDef } from './datasources/text-component-renderer-def';
+import { ConstraintComponentRendererDef } from './datasources/constraint-component-renderer-def';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
@@ -148,15 +150,25 @@ export class AppComponent
                 (consentRendererDef) =>
                 {
                     this.consentRendererId   = consentRendererDef.id;
-                    this.consentRendererName = '';
+                    if (consentRendererDef.descriptionRendererDefs[0])
+                        this.consentRendererName = consentRendererDef.descriptionRendererDefs[0].text;
 
                     const consentRendererComponents = [];
                     for (const componentRendererDef of consentRendererDef.componentRendererDefs)
                     {
                         const consentRendererComponent: ConsentRendererComponentModel = new ConsentRendererComponentModel();
 
-                        consentRendererComponent.type = 'text';
-                        consentRendererComponent.text = 'Hello world';
+                        if (componentRendererDef instanceof TextComponentRendererDef)
+                        {
+                            consentRendererComponent.type = 'text';
+                            consentRendererComponent.text = (componentRendererDef as TextComponentRendererDef).valueTextComponentRendererDefs[0].text;
+                        }
+                        else if (componentRendererDef instanceof ConstraintComponentRendererDef)
+                        {
+                            consentRendererComponent.type = 'constraint';
+                        }
+                        else
+                            consentRendererComponent.type = 'unknown';
 
                         consentRendererComponents.push(consentRendererComponent);
                     }

@@ -69,8 +69,8 @@
         <mat-tab-group>
             <mat-tab label="Consent Renderer">
                 <mat-card>
-                    <mat-card-title>Consent Renderer</mat-card-title>
                     <mat-card-content>
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Name:</b><span fxFlex>{{consentRendererName}}</span></div>
                         <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Id:</b><span fxFlex>{{consentRendererId}}</span></div>
                         <silver-renderer-components [(consentRendererComponents)]="consentRendererComponents"></silver-renderer-components>
                     </mat-card-content>
@@ -88,7 +88,6 @@
             </mat-tab>
             <mat-tab label="Consent Detail">
                 <mat-card>
-                    <mat-card-title>Consent Detail</mat-card-title>
                     <mat-card-content>
                         <mat-form-field fxFill>
                             <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text">{{consentDetail}}</textarea>
@@ -108,7 +107,6 @@
             </mat-tab>
             <mat-tab label="Consent Purpose">
                 <mat-card>
-                    <mat-card-title>Consent Purpose</mat-card-title>
                     <mat-card-content>
                         <mat-form-field fxFill>
                             <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
