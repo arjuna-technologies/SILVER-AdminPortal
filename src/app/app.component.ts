@@ -9,9 +9,11 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { LoginFailureDialogComponent } from './login-failure-dialog/login-failure-dialog.component';
 
 import { ConsentTypeModel } from './model/consent-type-model';
 import { ConsentTypesModel } from './model/consent-types-model';
+import { ConsentRendererComponentModel } from './model/consent-renderercomponent-model';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
@@ -25,23 +27,29 @@ export class AppComponent
 {
     public displayedColumns: string[];
 
-    public username:         string;
-    public consentTypes:     ConsentTypesModel;
-    public consentTypeId:    string;
-    public consentTypeName:  string;
-    public consentDetail:    string;
-    public consentPurpose:   string;
+    public username:                  string;
+    public consentTypes:              ConsentTypesModel;
+    public consentTypeId:             string;
+    public consentTypeName:           string;
+    public consentRendererId:         string;
+    public consentRendererName:       string;
+    public consentRendererComponents: ConsentRendererComponentModel[];
+    public consentDetail:             string;
+    public consentPurpose:            string;
 
     public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
     {
         this.displayedColumns = [ 'name', 'published', 'deprecated' ];
 
-        this.username        = '';
-        this.consentTypes    = null;
-        this.consentTypeId   = '';
-        this.consentTypeName = '';
-        this.consentDetail   = '';
-        this.consentPurpose  = '';
+        this.username                  = '';
+        this.consentTypes              = null;
+        this.consentTypeId             = '';
+        this.consentTypeName           = '';
+        this.consentRendererId         = '';
+        this.consentRendererName       = '';
+        this.consentRendererComponents = [];
+        this.consentDetail             = '';
+        this.consentPurpose            = '';
     }
 
     public openLoginDialog(): void
@@ -55,6 +63,17 @@ export class AppComponent
             this.logout();
     }
 
+    public doUpdateCancel(): void
+    {
+        this.consentTypeId             = '';
+        this.consentTypeName           = '';
+        this.consentRendererId         = '';
+        this.consentRendererName       = '';
+        this.consentRendererComponents = [];
+        this.consentDetail             = '';
+        this.consentPurpose            = '';
+    }
+
     private login(username: string, password: string): void
     {
         if (username === 'Admin')
@@ -65,23 +84,31 @@ export class AppComponent
         }
         else
         {
-            this.username        = '';
-            this.consentTypes    = null;
-            this.consentTypeId   = '';
-            this.consentTypeName = '';
-            this.consentDetail   = '';
-            this.consentPurpose  = '';
+            this.username                  = '';
+            this.consentTypes              = null;
+            this.consentTypeId             = '';
+            this.consentTypeName           = '';
+            this.consentRendererId         = '';
+            this.consentRendererName       = '';
+            this.consentRendererComponents = [];
+            this.consentDetail             = '';
+            this.consentPurpose            = '';
+
+            const loginFailureDialogRef = this.dialog.open(LoginFailureDialogComponent);
         }
     }
 
     private logout(): void
     {
-        this.username        = '';
-        this.consentTypes    = null;
-        this.consentTypeId   = '';
-        this.consentTypeName = '';
-        this.consentDetail   = '';
-        this.consentPurpose  = '';
+        this.username                  = '';
+        this.consentTypes              = null;
+        this.consentTypeId             = '';
+        this.consentTypeName           = '';
+        this.consentRendererId         = '';
+        this.consentRendererName       = '';
+        this.consentRendererComponents = [];
+        this.consentDetail             = '';
+        this.consentPurpose            = '';
     }
 
     private loadConsentTypes(): void
@@ -99,7 +126,7 @@ export class AppComponent
                         consentType.id        = consentTypeDef.id;
                         consentType.name      = consentTypeDef.name;
                         consentType.creatable = true;
-                        consentType.active    = false;
+                        consentType.active    = true;
 
                         consentTypes.push(consentType);
                     }
@@ -120,8 +147,35 @@ export class AppComponent
             (
                 (consentRendererDef) =>
                 {
+                    this.consentRendererId   = consentRendererDef.id;
+                    this.consentRendererName = '';
+
+                    const consentRendererComponents = [];
+                    for (const componentRendererDef of consentRendererDef.componentRendererDefs)
+                    {
+                        const consentRendererComponent: ConsentRendererComponentModel = new ConsentRendererComponentModel();
+
+                        consentRendererComponent.type = 'text';
+                        consentRendererComponent.text = 'Hello world';
+
+                        consentRendererComponents.push(consentRendererComponent);
+                    }
+                    this.consentRendererComponents = consentRendererComponents;
+
+                    this.consentDetail  = '';
+                    this.consentPurpose = '';
                 }
             )
-            .catch(() => { } );
+            .catch
+            (
+                () =>
+                {
+                    this.consentRendererId                = '';
+                    this.consentRendererName              = '';
+                    this.consentRendererComponents.length = 0;
+                    this.consentDetail                    = '';
+                    this.consentPurpose                   = '';
+                }
+            );
     }
 }

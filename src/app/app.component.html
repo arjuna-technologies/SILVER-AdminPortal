@@ -27,7 +27,7 @@
                 <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <button mat-button (click)="loadConsentRenderer(row)">
-                        <mat-icon>folder_open</mat-icon>
+                        <mat-icon>content_copy</mat-icon>
                         <span> {{row.name}} </span>
                     </button>
                 </mat-cell>
@@ -46,18 +46,44 @@
                     <mat-icon *ngIf="row.active">check_box</mat-icon>
                 </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active' ]"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active' ]"></mat-row>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-raised-button>
+                        <mat-icon>pause_circle_outline</mat-icon>
+                        <span> Unpublish </span>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active', 'actions' ]"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active', 'actions' ]"></mat-row>
         </mat-table>
+        <div fxLayout="row" fxLayoutAlign="space-around stretch">
+            <mat-paginator [length]="6" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+        </div>
     </mat-card-content>
-    <mat-card-title *ngIf="consentTypeId">Consent Types: {{consentTypeName}}</mat-card-title>
+    <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
     <mat-card-content *ngIf="consentTypeId">
+        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Name:</b><span fxFlex>{{consentTypeName}}</span></div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Id:</b><span fxFlex>{{consentTypeId}}</span></div>
         <mat-tab-group>
-            <mat-tab label="Consent Types">
+            <mat-tab label="Consent Renderer">
                 <mat-card>
-                    <mat-card-title>Consent Types</mat-card-title>
+                    <mat-card-title>Consent Renderer</mat-card-title>
                     <mat-card-content>
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Id:</b><span fxFlex>{{consentRendererId}}</span></div>
+                        <silver-renderer-components [(consentRendererComponents)]="consentRendererComponents"></silver-renderer-components>
                     </mat-card-content>
+                    <mat-card-actions>
+                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                            <button mat-raised-button color="primary" (click)="doUpdateConsentRenderer()">
+                                <mat-icon>add</mat-icon><span> Update Consent Renderer </span>
+                            </button>
+                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                <mat-icon>clear</mat-icon><span> Cancel </span>
+                            </button>
+                        </div>
+                    </mat-card-actions>
                 </mat-card>
             </mat-tab>
             <mat-tab label="Consent Detail">
@@ -65,9 +91,19 @@
                     <mat-card-title>Consent Detail</mat-card-title>
                     <mat-card-content>
                         <mat-form-field fxFill>
-                            <textarea matInput matTextareaAutosize minRows="8" placeholder="Consent Detail Text">{{consentDetail}}</textarea>
+                            <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text">{{consentDetail}}</textarea>
                         </mat-form-field>
                     </mat-card-content>
+                    <mat-card-actions>
+                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                            <button mat-raised-button color="primary" (click)="doUpdateConsentDetail()">
+                                <mat-icon>add</mat-icon><span> Update Consent Detail </span>
+                            </button>
+                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                <mat-icon>clear</mat-icon><span> Cancel </span>
+                            </button>
+                        </div>
+                    </mat-card-actions>
                 </mat-card>
             </mat-tab>
             <mat-tab label="Consent Purpose">
@@ -75,9 +111,19 @@
                     <mat-card-title>Consent Purpose</mat-card-title>
                     <mat-card-content>
                         <mat-form-field fxFill>
-                            <textarea matInput matTextareaAutosize placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
+                            <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
                         </mat-form-field>
                     </mat-card-content>
+                    <mat-card-actions>
+                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                            <button mat-raised-button color="primary" (click)="doUpdateConsentPurpose()">
+                                <mat-icon>add</mat-icon><span> Update Consent Purpose </span>
+                            </button>
+                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                <mat-icon>clear</mat-icon><span> Cancel </span>
+                            </button>
+                        </div>
+                    </mat-card-actions>
                 </mat-card>
             </mat-tab>
         </mat-tab-group>

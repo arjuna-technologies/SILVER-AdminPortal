@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatListModule } from '@angular/material';
@@ -27,17 +28,21 @@ import { MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { LoginFailureDialogComponent } from './login-failure-dialog/login-failure-dialog.component';
 
 import { DatasourcesConfigService } from './config/datasources-config.service';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
+import { RendererComponentsComponent } from './renderer-components/renderer-components.component';
 
 @NgModule
 ({
     declarations:
     [
         AppComponent,
-        LoginDialogComponent
+        LoginDialogComponent,
+        LoginFailureDialogComponent,
+        RendererComponentsComponent
     ],
     imports:
     [
@@ -49,6 +54,7 @@ import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-
         MatIconModule,
         MatButtonModule,
         MatTableModule,
+        MatPaginatorModule,
         MatTabsModule,
         MatCardModule,
         MatListModule,
@@ -59,7 +65,8 @@ import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-
     ],
     entryComponents:
     [
-        LoginDialogComponent
+        LoginDialogComponent,
+        LoginFailureDialogComponent
     ],
     providers:
     [
