@@ -31,7 +31,7 @@ export class RendererComponentsComponent
         return false;
     }
 
-    public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
+    public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         console.log('RCC MoveDown[' + JSON.stringify(rendererComponent) + ']');
 
@@ -39,7 +39,7 @@ export class RendererComponentsComponent
         return false;
     }
 
-    public doAddAboveRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
+    public doAddAboveRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         console.log('RCC AddAbove[' + JSON.stringify(rendererComponent) + ']');
 
@@ -47,7 +47,7 @@ export class RendererComponentsComponent
         return false;
     }
 
-    public doAddBelowRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
+    public doAddBelowRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         console.log('RCC AddBelow[' + JSON.stringify(rendererComponent) + ']');
 
@@ -55,7 +55,7 @@ export class RendererComponentsComponent
         return false;
     }
 
-    public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
+    public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         console.log('RCC Remove[' + JSON.stringify(rendererComponent) + ']');
 
