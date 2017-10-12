@@ -23,27 +23,39 @@ export class RendererComponentsComponent
         console.log('RCC Select[' + JSON.stringify(rendererComponent) + ']');
     }
 
-    public doMoveUpRendererComponent(rendererComponent: ConsentRendererComponentModel)
+    public doMoveUpRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         console.log('RCC MoveUp[' + JSON.stringify(rendererComponent) + ']');
+
+        event.stopPropagation();
+        return false;
     }
 
-    public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel)
+    public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
     {
         console.log('RCC MoveDown[' + JSON.stringify(rendererComponent) + ']');
+
+        event.stopPropagation();
+        return false;
     }
 
-    public doAddAboveRendererComponent(rendererComponent: ConsentRendererComponentModel)
+    public doAddAboveRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
     {
         console.log('RCC AddAbove[' + JSON.stringify(rendererComponent) + ']');
+
+        event.stopPropagation();
+        return false;
     }
 
-    public doAddBelowRendererComponent(rendererComponent: ConsentRendererComponentModel)
+    public doAddBelowRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
     {
         console.log('RCC AddBelow[' + JSON.stringify(rendererComponent) + ']');
+
+        event.stopPropagation();
+        return false;
     }
 
-    public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel)
+    public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel): boolean
     {
         console.log('RCC Remove[' + JSON.stringify(rendererComponent) + ']');
 
@@ -53,5 +65,8 @@ export class RendererComponentsComponent
             this.consentRendererComponents.data.splice(index, 1);
             this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
         }
+
+        event.stopPropagation();
+        return false;
     }
 }
