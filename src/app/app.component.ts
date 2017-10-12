@@ -80,6 +80,13 @@ export class AppComponent
         this.consentPurpose            = '';
     }
 
+    public setConsentRendererComponent(event): void
+    {
+        console.log('XXXX: ' + JSON.stringify(event));
+
+        this.consentRendererComponent = event;
+    }
+
     private login(username: string, password: string): void
     {
         if (username === 'Admin')

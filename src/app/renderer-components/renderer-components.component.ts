@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { ConsentRendererComponentModel } from '../model/consent-renderercomponent-model';
 import { ConsentRendererComponentsModel } from '../model/consent-renderercomponents-model';
@@ -14,6 +14,9 @@ export class RendererComponentsComponent
     @Input()
     public consentRendererComponents: ConsentRendererComponentsModel;
 
+    @Output()
+    public selectRendererComponent = new EventEmitter();
+
     constructor()
     {
     }
@@ -21,6 +24,8 @@ export class RendererComponentsComponent
     public doSelectRendererComponent(rendererComponent: ConsentRendererComponentModel)
     {
         console.log('RCC Select[' + JSON.stringify(rendererComponent) + ']');
+
+        this.selectRendererComponent.emit(rendererComponent);
     }
 
     public doMoveUpRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean

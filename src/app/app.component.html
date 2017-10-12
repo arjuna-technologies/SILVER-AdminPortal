@@ -73,7 +73,7 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Name:</b><span fxFlex>{{consentRendererName}}</span></div>
                         <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Id:</b><span fxFlex>{{consentRendererId}}</span></div>
                         <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-                            <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents"></silver-renderer-components>
+                            <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents" (selectRendererComponent)="setConsentRendererComponent($event)"></silver-renderer-components>
                             <silver-renderer-component fxFlex="50" [(consentRendererComponent)]="consentRendererComponent"></silver-renderer-component>
                         </div>
                     </mat-card-content>
