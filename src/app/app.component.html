@@ -58,8 +58,8 @@
             <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active', 'actions' ]"></mat-header-row>
             <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active', 'actions' ]"></mat-row>
         </mat-table>
-        <div fxLayout="row" fxLayoutAlign="space-around stretch">
-            <mat-paginator [length]="6" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+        <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
+            <mat-paginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
         </div>
     </mat-card-content>
     <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
@@ -72,7 +72,10 @@
                     <mat-card-content>
                         <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Name:</b><span fxFlex>{{consentRendererName}}</span></div>
                         <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Id:</b><span fxFlex>{{consentRendererId}}</span></div>
-                        <silver-renderer-components [(consentRendererComponents)]="consentRendererComponents"></silver-renderer-components>
+                        <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+                            <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents"></silver-renderer-components>
+                            <silver-renderer-component fxFlex="50" [(consentRendererComponent)]="consentRendererComponent"></silver-renderer-component>
+                        </div>
                     </mat-card-content>
                     <mat-card-actions>
                         <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">

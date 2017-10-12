@@ -33,6 +33,7 @@ import { LoginFailureDialogComponent } from './login-failure-dialog/login-failur
 import { DatasourcesConfigService } from './config/datasources-config.service';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
+import { RendererComponentComponent } from './renderer-component/renderer-component.component';
 import { RendererComponentsComponent } from './renderer-components/renderer-components.component';
 
 @NgModule
@@ -42,6 +43,7 @@ import { RendererComponentsComponent } from './renderer-components/renderer-comp
         AppComponent,
         LoginDialogComponent,
         LoginFailureDialogComponent,
+        RendererComponentComponent,
         RendererComponentsComponent
     ],
     imports:

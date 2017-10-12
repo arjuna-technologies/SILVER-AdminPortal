@@ -14,6 +14,7 @@ import { LoginFailureDialogComponent } from './login-failure-dialog/login-failur
 import { ConsentTypeModel } from './model/consent-type-model';
 import { ConsentTypesModel } from './model/consent-types-model';
 import { ConsentRendererComponentModel } from './model/consent-renderercomponent-model';
+import { ConsentRendererComponentsModel } from './model/consent-renderercomponents-model';
 import { TextComponentRendererDef } from './datasources/text-component-renderer-def';
 import { ConstraintComponentRendererDef } from './datasources/constraint-component-renderer-def';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
@@ -35,7 +36,8 @@ export class AppComponent
     public consentTypeName:           string;
     public consentRendererId:         string;
     public consentRendererName:       string;
-    public consentRendererComponents: ConsentRendererComponentModel[];
+    public consentRendererComponents: ConsentRendererComponentsModel;
+    public consentRendererComponent:  ConsentRendererComponentModel;
     public consentDetail:             string;
     public consentPurpose:            string;
 
@@ -44,12 +46,13 @@ export class AppComponent
         this.displayedColumns = [ 'name', 'published', 'deprecated' ];
 
         this.username                  = '';
-        this.consentTypes              = null;
+        this.consentTypes              = new ConsentTypesModel([]);
         this.consentTypeId             = '';
         this.consentTypeName           = '';
         this.consentRendererId         = '';
         this.consentRendererName       = '';
-        this.consentRendererComponents = [];
+        this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+        this.consentRendererComponent  = new ConsentRendererComponentModel();
         this.consentDetail             = '';
         this.consentPurpose            = '';
     }
@@ -71,7 +74,8 @@ export class AppComponent
         this.consentTypeName           = '';
         this.consentRendererId         = '';
         this.consentRendererName       = '';
-        this.consentRendererComponents = [];
+        this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+        this.consentRendererComponent  = new ConsentRendererComponentModel();
         this.consentDetail             = '';
         this.consentPurpose            = '';
     }
@@ -87,12 +91,13 @@ export class AppComponent
         else
         {
             this.username                  = '';
-            this.consentTypes              = null;
+            this.consentTypes              = new ConsentTypesModel([]);
             this.consentTypeId             = '';
             this.consentTypeName           = '';
             this.consentRendererId         = '';
             this.consentRendererName       = '';
-            this.consentRendererComponents = [];
+            this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+            this.consentRendererComponent  = new ConsentRendererComponentModel();
             this.consentDetail             = '';
             this.consentPurpose            = '';
 
@@ -103,12 +108,13 @@ export class AppComponent
     private logout(): void
     {
         this.username                  = '';
-        this.consentTypes              = null;
+        this.consentTypes              = new ConsentTypesModel([]);
         this.consentTypeId             = '';
         this.consentTypeName           = '';
         this.consentRendererId         = '';
         this.consentRendererName       = '';
-        this.consentRendererComponents = [];
+        this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+        this.consentRendererComponent  = new ConsentRendererComponentModel();
         this.consentDetail             = '';
         this.consentPurpose            = '';
     }
@@ -166,13 +172,14 @@ export class AppComponent
                         else if (componentRendererDef instanceof ConstraintComponentRendererDef)
                         {
                             consentRendererComponent.type = 'constraint';
+                            consentRendererComponent.name = (componentRendererDef as ConstraintComponentRendererDef).descriptionRendererDefs[0].text;
                         }
                         else
                             consentRendererComponent.type = 'unknown';
 
                         consentRendererComponents.push(consentRendererComponent);
                     }
-                    this.consentRendererComponents = consentRendererComponents;
+                    this.consentRendererComponents = new ConsentRendererComponentsModel(consentRendererComponents);
 
                     this.consentDetail  = '';
                     this.consentPurpose = '';
@@ -182,11 +189,11 @@ export class AppComponent
             (
                 () =>
                 {
-                    this.consentRendererId                = '';
-                    this.consentRendererName              = '';
-                    this.consentRendererComponents.length = 0;
-                    this.consentDetail                    = '';
-                    this.consentPurpose                   = '';
+                    this.consentRendererId         = '';
+                    this.consentRendererName       = '';
+                    this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+                    this.consentDetail             = '';
+                    this.consentPurpose            = '';
                 }
             );
     }

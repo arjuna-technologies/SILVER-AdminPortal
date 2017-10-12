@@ -12,6 +12,7 @@ export class ConsentRendererComponentModel
     public text: string;
 
     public id:   string;
+    public name: string;
 
     public constructor()
     {
@@ -19,6 +20,7 @@ export class ConsentRendererComponentModel
 
          this.text = '';
 
-         this.id = '';
+         this.id   = '';
+         this.name = '';
     }
 }
