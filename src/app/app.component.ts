@@ -205,6 +205,7 @@ export class AppComponent
                     this.consentRendererId         = '';
                     this.consentRendererName       = '';
                     this.consentRendererComponents = new ConsentRendererComponentsModel([]);
+                    this.consentRendererComponent  = new ConsentRendererComponentModel();
                     this.consentDetail             = '';
                     this.consentPurpose            = '';
                 }

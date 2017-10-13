@@ -100,11 +100,15 @@ export class RendererComponentsComponent
 
     public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
-        if (index > -1)
+        if (this.consentRendererComponents.data.length > 1)
         {
-            this.consentRendererComponents.data.splice(index, 1);
-            this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
+            const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
+            if (index > -1)
+            {
+                this.consentRendererComponents.data.splice(index, 1);
+                this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
+                this.selectRendererComponent.emit(this.consentRendererComponents.data[0]);
+            }
         }
 
         event.stopPropagation();
