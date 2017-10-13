@@ -70,8 +70,17 @@
             <mat-tab label="Consent Renderer">
                 <mat-card>
                     <mat-card-content>
-                        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Name:</b><span fxFlex>{{consentRendererName}}</span></div>
-                        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Renderer Id:</b><span fxFlex>{{consentRendererId}}</span></div>
+                        <mat-form-field fxFill>
+                            <input matInput placeholder="Renderer Name" type="text" [(ngModel)]="consentRendererName">
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxFill>
+                            <mat-form-field fxFlex="85">
+                                <input matInput placeholder="Id" type="text" [(ngModel)]="consentRendererId">
+                            </mat-form-field>
+                            <button mat-raised-button (click)="doGenerateId()" fxFlex="10">
+                                <mat-icon>refresh</mat-icon><span> Generate </span>
+                            </button>
+                        </div>
                         <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
                             <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents" (selectRendererComponent)="setConsentRendererComponent($event)"></silver-renderer-components>
                             <silver-renderer-component fxFlex="50" [(consentRendererComponent)]="consentRendererComponent"></silver-renderer-component>

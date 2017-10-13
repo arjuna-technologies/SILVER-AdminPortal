@@ -19,8 +19,8 @@
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> Name/Text </mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <span *ngIf="row.text"> {{row.text}} </span>
-                <span *ngIf="row.name"> {{row.name}} </span>
+                <span *ngIf="row.type === 'text'"> {{row.text}} </span>
+                <span *ngIf="row.type === 'constraint'"> {{row.name}} </span>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="actions">

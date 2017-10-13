@@ -16,7 +16,7 @@ export class ConsentRendererComponentModel
 
     public constructor()
     {
-         this.type = '';
+         this.type = 'text';
 
          this.text = '';
 

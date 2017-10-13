@@ -23,14 +23,19 @@ export class RendererComponentsComponent
 
     public doSelectRendererComponent(rendererComponent: ConsentRendererComponentModel)
     {
-        console.log('RCC Select[' + JSON.stringify(rendererComponent) + ']');
-
         this.selectRendererComponent.emit(rendererComponent);
     }
 
     public doMoveUpRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        console.log('RCC MoveUp[' + JSON.stringify(rendererComponent) + ']');
+        const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
+        if (index > 0)
+        {
+            this.consentRendererComponents.data[index]     = this.consentRendererComponents.data[index - 1];
+            this.consentRendererComponents.data[index - 1] = rendererComponent;
+
+            this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
+        }
 
         event.stopPropagation();
         return false;
@@ -38,7 +43,14 @@ export class RendererComponentsComponent
 
     public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        console.log('RCC MoveDown[' + JSON.stringify(rendererComponent) + ']');
+        const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
+        if ((index > -1) && ((index + 1 ) < this.consentRendererComponents.data.length))
+        {
+            this.consentRendererComponents.data[index]     = this.consentRendererComponents.data[index + 1];
+            this.consentRendererComponents.data[index + 1] = rendererComponent;
+
+            this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
+        }
 
         event.stopPropagation();
         return false;
@@ -46,7 +58,20 @@ export class RendererComponentsComponent
 
     public doAddAboveRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        console.log('RCC AddAbove[' + JSON.stringify(rendererComponent) + ']');
+        const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
+        if (index > -1)
+        {
+            const newRendererComponents: ConsentRendererComponentModel[] = [];
+
+            for (let count = 0; count < this.consentRendererComponents.data.length; count++)
+            {
+                if (count === index)
+                    newRendererComponents.push(new ConsentRendererComponentModel());
+                newRendererComponents.push(this.consentRendererComponents.data[count]);
+            }
+
+            this.consentRendererComponents = new ConsentRendererComponentsModel(newRendererComponents);
+        }
 
         event.stopPropagation();
         return false;
@@ -54,7 +79,20 @@ export class RendererComponentsComponent
 
     public doAddBelowRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        console.log('RCC AddBelow[' + JSON.stringify(rendererComponent) + ']');
+        const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
+        if (index > -1)
+        {
+            const newRendererComponents: ConsentRendererComponentModel[] = [];
+
+            for (let count = 0; count < this.consentRendererComponents.data.length; count++)
+            {
+                newRendererComponents.push(this.consentRendererComponents.data[count]);
+                if (count === index)
+                    newRendererComponents.push(new ConsentRendererComponentModel());
+            }
+
+            this.consentRendererComponents = new ConsentRendererComponentsModel(newRendererComponents);
+        }
 
         event.stopPropagation();
         return false;
@@ -62,8 +100,6 @@ export class RendererComponentsComponent
 
     public doRemoveRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
-        console.log('RCC Remove[' + JSON.stringify(rendererComponent) + ']');
-
         const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
         if (index > -1)
         {

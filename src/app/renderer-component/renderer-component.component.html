@@ -1,5 +1,37 @@
 <div>
-     <h3>Renderer Component</h3>
-     <mat-icon *ngIf="consentRendererComponent.type === 'text'">short_text</mat-icon>
-     <mat-icon *ngIf="consentRendererComponent.type === 'constraint'">format_list_bulleted</mat-icon>
+    <h3>Renderer Component</h3>
+    <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="doChangeType($event)">
+        <mat-tab label="Text">
+            <ng-template mat-tab-label>
+                <mat-icon>short_text</mat-icon><span> Text </span>
+            </ng-template>
+            <mat-card>
+                <mat-card-content>
+                    <mat-form-field fxFill>
+                        <input matInput placeholder="Text" type="text" [(ngModel)]="consentRendererComponent.text">
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </mat-tab>
+        <mat-tab label="Constraint">
+            <ng-template mat-tab-label>
+                <mat-icon>format_list_bulleted</mat-icon><span> Constraint </span>
+            </ng-template>
+            <mat-card>
+                <mat-card-content>
+                    <mat-form-field fxFill>
+                        <input matInput placeholder="Name" type="text" [(ngModel)]="consentRendererComponent.name">
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" fxFill>
+                        <mat-form-field fxFlex="75">
+                            <input matInput placeholder="Id" type="text" [(ngModel)]="consentRendererComponent.id">
+                        </mat-form-field>
+                        <button mat-raised-button (click)="doGenerateId()" fxFlex="20">
+                            <mat-icon>refresh</mat-icon><span> Generate </span>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
 </div>

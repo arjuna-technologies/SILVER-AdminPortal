@@ -22,7 +22,7 @@ export class ConsentTypesModel extends DataSource<any>
 
         this.data = data;
     }
- 
+
     public connect(): Observable<ConsentTypeModel[]>
     {
         return Observable.of(this.data);

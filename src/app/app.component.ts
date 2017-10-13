@@ -5,6 +5,8 @@
 //                     All rights reserved.
 //
 
+import { v4 } from 'uuid'
+
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
@@ -82,9 +84,12 @@ export class AppComponent
 
     public setConsentRendererComponent(event): void
     {
-        console.log('XXXX: ' + JSON.stringify(event));
-
         this.consentRendererComponent = event;
+    }
+
+    public doGenerateId(): void
+    {
+        this.consentRendererId = v4();
     }
 
     private login(username: string, password: string): void
@@ -133,7 +138,7 @@ export class AppComponent
             (
                 (consentTypeDefs) =>
                 {
-                    let consentTypes = [];
+                    const consentTypes = [];
                     for (const consentTypeDef of consentTypeDefs)
                     {
                         const consentType: ConsentTypeModel = new ConsentTypeModel();
@@ -187,6 +192,7 @@ export class AppComponent
                         consentRendererComponents.push(consentRendererComponent);
                     }
                     this.consentRendererComponents = new ConsentRendererComponentsModel(consentRendererComponents);
+                    this.consentRendererComponent  = consentRendererComponents[0];
 
                     this.consentDetail  = '';
                     this.consentPurpose = '';

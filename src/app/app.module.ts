@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import 'hammerjs';
 
@@ -52,6 +53,7 @@ import { RendererComponentsComponent } from './renderer-components/renderer-comp
         BrowserAnimationsModule,
         HttpModule,
         FlexLayoutModule,
+        FormsModule,
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
