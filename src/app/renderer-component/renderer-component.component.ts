@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 
 import { MatTabChangeEvent } from '@angular/material';
 
-import { v4 } from 'uuid'
+import { v4 } from 'uuid';
 
 import { ConsentRendererComponentModel } from '../model/consent-renderercomponent-model';
 

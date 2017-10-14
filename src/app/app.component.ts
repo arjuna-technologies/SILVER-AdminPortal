@@ -5,7 +5,7 @@
 //                     All rights reserved.
 //
 
-import { v4 } from 'uuid'
+import { v4 } from 'uuid';
 
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
