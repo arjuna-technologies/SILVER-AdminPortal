@@ -1,0 +1,41 @@
+<!--                                                                                                          -->
+<!-- Copyright (c) 2017, Arjuna Technologies Limited, Newcastle upon Tyne, England,                           -->
+<!--                     Open Lab, Newcastle University, Newcastle upon Tyne, England,                        -->
+<!--                     Institute of Health and Society, Newcastle University, Newcastle upon Tyne, England. -->
+<!--                     All rights reserved.                                                                 -->
+<!--                                                                                                          -->
+
+<div>
+    <mat-table [dataSource]="consentRendererComponents">
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-icon *ngIf="row.type === 'text'">short_text</mat-icon>
+                <mat-icon *ngIf="row.type === 'constraint'">format_list_bulleted</mat-icon>
+                <span *ngIf="row.type"> {{row.type}} </span>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name/Text </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span *ngIf="row.type === 'text'"> {{row.text}} </span>
+                <span *ngIf="row.type === 'constraint'"> {{row.name}} </span>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button (click)="doMoveUpRendererComponent(row, $event)"><mat-icon aria-label="Move up">arrow_upward</mat-icon></button>
+                <button mat-icon-button (click)="doMoveDownRendererComponent(row, $event)"><mat-icon aria-label="Move down">arrow_downward</mat-icon></button>
+                <button mat-icon-button (click)="doAddAboveRendererComponent(row, $event)"><mat-icon aria-label="Add above">vertical_align_top</mat-icon></button>
+                <button mat-icon-button (click)="doAddBelowRendererComponent(row, $event)"><mat-icon aria-label="Add below">vertical_align_bottom</mat-icon></button>
+                <button mat-icon-button (click)="doRemoveRendererComponent(row, $event)"><mat-icon aria-label="Remove">remove</mat-icon></button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="[ 'type', 'name', 'actions' ]"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: [ 'type', 'name', 'actions' ]" (click)="doSelectRendererComponent(row)"></mat-row>
+    </mat-table>
+    <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
+        <mat-paginator [length]="consentRendererComponents.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+    </div>
+</div>
