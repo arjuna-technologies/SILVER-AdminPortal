@@ -5,7 +5,7 @@ import { ConsentConstraintValuesModel } from '../model/consent-constraintvalues-
 
 @Component
 ({
-    selector:    'silver-constraint-components',
+    selector:    'silver-constraint-values',
     templateUrl: './constraint-values.component.html',
     styleUrls:   ['./constraint-values.component.scss']
 })

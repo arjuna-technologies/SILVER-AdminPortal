@@ -36,6 +36,8 @@ import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-load
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 import { RendererComponentComponent } from './renderer-component/renderer-component.component';
 import { RendererComponentsComponent } from './renderer-components/renderer-components.component';
+import { ConstraintValueComponent } from './constraint-value/constraint-value.component';
+import { ConstraintValuesComponent } from './constraint-values/constraint-values.component';
 
 @NgModule
 ({
@@ -45,7 +47,9 @@ import { RendererComponentsComponent } from './renderer-components/renderer-comp
         LoginDialogComponent,
         LoginFailureDialogComponent,
         RendererComponentComponent,
-        RendererComponentsComponent
+        RendererComponentsComponent,
+        ConstraintValueComponent,
+        ConstraintValuesComponent
     ],
     imports:
     [

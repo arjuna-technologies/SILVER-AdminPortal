@@ -17,8 +17,11 @@ import { ConsentTypeModel } from './model/consent-type-model';
 import { ConsentTypesModel } from './model/consent-types-model';
 import { ConsentRendererComponentModel } from './model/consent-renderercomponent-model';
 import { ConsentRendererComponentsModel } from './model/consent-renderercomponents-model';
+import { ConsentConstraintValuesModel } from './model/consent-constraintvalues-model';
+import { ConsentConstraintValueModel } from './model/consent-constraintvalue-model';
 import { TextComponentRendererDef } from './datasources/text-component-renderer-def';
 import { ConstraintComponentRendererDef } from './datasources/constraint-component-renderer-def';
+import { ValueConstraintComponentRendererDef } from './datasources/value-constraint-component-renderer-def';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 
@@ -178,13 +181,30 @@ export class AppComponent
 
                         if (componentRendererDef instanceof TextComponentRendererDef)
                         {
+                            const textComponentRendererDef: TextComponentRendererDef = componentRendererDef as TextComponentRendererDef;
+
                             consentRendererComponent.type = 'text';
-                            consentRendererComponent.text = (componentRendererDef as TextComponentRendererDef).valueTextComponentRendererDefs[0].text;
+                            consentRendererComponent.text = textComponentRendererDef.valueTextComponentRendererDefs[0].text;
                         }
                         else if (componentRendererDef instanceof ConstraintComponentRendererDef)
                         {
+                            const constraintComponentRendererDef: ConstraintComponentRendererDef = componentRendererDef as ConstraintComponentRendererDef;
+
                             consentRendererComponent.type = 'constraint';
-                            consentRendererComponent.name = (componentRendererDef as ConstraintComponentRendererDef).descriptionRendererDefs[0].text;
+                            consentRendererComponent.id   = constraintComponentRendererDef.id;
+                            consentRendererComponent.name = constraintComponentRendererDef.descriptionRendererDefs[0].text;
+
+                            const consentConstraintValueModels: ConsentConstraintValueModel[] = [];
+                            for (const valueConstraintComponentRendererDef of constraintComponentRendererDef.valueConstraintComponentRendererDefs)
+                            {
+                                const consentConstraintValue: ConsentConstraintValueModel = new ConsentConstraintValueModel();
+
+                                consentConstraintValue.id   = valueConstraintComponentRendererDef.id;
+                                consentConstraintValue.text = valueConstraintComponentRendererDef.descriptionRendererDefs[0].text;
+
+                                consentConstraintValueModels.push(consentConstraintValue);
+                            }
+                            consentRendererComponent.constraintValuesModel = new ConsentConstraintValuesModel(consentConstraintValueModels)
                         }
                         else
                             consentRendererComponent.type = 'unknown';
