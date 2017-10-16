@@ -49,18 +49,18 @@ export class ConstraintComponentRendererDef implements ComponentRendererDef
 
     public toObject(): any
     {
-        const constraintComponentObject: any = { };
+        const constraint: any = { };
 
-        constraintComponentObject.id = this.id;
+        constraint.id = this.id;
 
-        constraintComponentObject.descriptions = [];
+        constraint.descriptions = [];
         for (const descriptionRendererDef of this.descriptionRendererDefs)
-            constraintComponentObject.descriptions.push(descriptionRendererDef.toObject());
+            constraint.descriptions.push(descriptionRendererDef.toObject());
 
-        constraintComponentObject.values = [];
+        constraint.values = [];
         for (const valueConstraintComponentRendererDef of this.valueConstraintComponentRendererDefs)
-            constraintComponentObject.values.push(valueConstraintComponentRendererDef.toObject());
+            constraint.values.push(valueConstraintComponentRendererDef.toObject());
 
-        return constraintComponentObject;
+        return { type: 'constraint', constraint: constraint };
     }
 }

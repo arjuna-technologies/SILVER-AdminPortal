@@ -28,11 +28,11 @@ export class DescriptionRendererDef
 
     public toObject(): any
     {
-        const descriptionRendererDefObject: any = { };
+        const description: any = { };
 
-        descriptionRendererDefObject.selector = this.selector;
-        descriptionRendererDefObject.text     = this.text;
+        description.selector = this.selector;
+        description.text     = this.text;
 
-        return descriptionRendererDefObject;
+        return description;
     }
 }

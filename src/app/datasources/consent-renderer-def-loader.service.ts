@@ -46,7 +46,7 @@ export class ConsentRendererDefLoaderService
 
     public postConsentRendererDef(consentRendererId: string, consentTypeId: string, consentRendererType: string, consentRendererDef: ConsentRendererDef): Promise<boolean>
     {
-        return this.http.post(this.datasourcesConfigService.setConsentRendererDefLoaderBaseURL + '/' + consentRendererId + '?consenttypeid=' + consentTypeId +'&consentrenderertype=' + consentRendererType, consentRendererDef)
+        return this.http.post(this.datasourcesConfigService.setConsentRendererDefLoaderBaseURL + '/' + consentRendererId + '?consenttypeid=' + consentTypeId + '&consentrenderertype=' + consentRendererType, consentRendererDef)
                    .toPromise()
                    .then((response) => Promise.resolve(this.postConsentRendererDefSuccessHandler(response)))
                    .catch((response) => Promise.resolve(this.postConsentRendererDefErrorHandler(response)));

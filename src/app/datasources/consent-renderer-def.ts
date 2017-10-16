@@ -59,18 +59,18 @@ export class ConsentRendererDef implements IOObject
 
     public toObject(): any
     {
-        const consentRendererDefObject: any = { };
+        const consentrenderer: any = { };
 
-        consentRendererDefObject.id = this.id;
+        consentrenderer.id = this.id;
 
-        consentRendererDefObject.descriptions = [];
+        consentrenderer.descriptions = [];
         for (const descriptionRendererDef of this.descriptionRendererDefs)
-            consentRendererDefObject.descriptions.push(descriptionRendererDef.toObject());
+            consentrenderer.descriptions.push(descriptionRendererDef.toObject());
 
-        consentRendererDefObject.components = [];
+        consentrenderer.components = [];
         for (const componentRendererDef of this.componentRendererDefs)
-            consentRendererDefObject.components.push(componentRendererDef.toObject());
+            consentrenderer.components.push(componentRendererDef.toObject());
 
-        return consentRendererDefObject;
+        return consentrenderer;
     }
 }

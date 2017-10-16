@@ -37,14 +37,14 @@ export class ValueConstraintComponentRendererDef implements IOObject
 
     public toObject(): any
     {
-        const valueConstraintRendererDefObject: any = { };
+        const value: any = { };
 
-        valueConstraintRendererDefObject.id = this.id;
+        value.id = this.id;
 
-        valueConstraintRendererDefObject.descriptions = [];
+        value.descriptions = [];
         for (const descriptionRendererDef of this.descriptionRendererDefs)
-            valueConstraintRendererDefObject.descriptions.push(descriptionRendererDef.toObject());
+            value.descriptions.push(descriptionRendererDef.toObject());
 
-        return valueConstraintRendererDefObject;
+        return value;
     }
 }

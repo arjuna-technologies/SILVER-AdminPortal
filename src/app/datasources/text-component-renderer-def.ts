@@ -33,12 +33,12 @@ export class TextComponentRendererDef implements ComponentRendererDef
 
     public toObject(): any
     {
-        const textComponentRendererDefObject: any = { };
+        const text: any = { };
 
-        textComponentRendererDefObject.values = [];
+        text.values = [];
         for (const valueTextComponentRendererDef of this.valueTextComponentRendererDefs)
-            textComponentRendererDefObject.values.push(valueTextComponentRendererDef.toObject());
+            text.values.push(valueTextComponentRendererDef.toObject());
 
-        return textComponentRendererDefObject;
+        return { type: 'text', text: text };
     }
 }

@@ -29,11 +29,11 @@ export class ValueTextComponentRendererDef implements IOObject
 
     public toObject(): any
     {
-        const valueTextComponentRendererDefObject: any = { };
+        const value: any = { };
 
-        valueTextComponentRendererDefObject.selector = this.selector;
-        valueTextComponentRendererDefObject.text     = this.text;
+        value.selector = this.selector;
+        value.text     = this.text;
 
-        return valueTextComponentRendererDefObject;
+        return value;
     }
 }

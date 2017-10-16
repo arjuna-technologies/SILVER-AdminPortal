@@ -143,7 +143,7 @@ export class AppComponent
                 }
 
                 consentRendererDef.componentRendererDefs.push(constraintComponentRendererDef);
-            }            
+            }
         }
 
         this.saveConsentRenderer(this.consentRendererId, this.consentTypeId, 'StyleA', consentRendererDef);
@@ -263,7 +263,7 @@ export class AppComponent
 
                                 consentConstraintValueModels.push(consentConstraintValue);
                             }
-                            consentRendererComponent.constraintValuesModel = new ConsentConstraintValuesModel(consentConstraintValueModels)
+                            consentRendererComponent.constraintValuesModel = new ConsentConstraintValuesModel(consentConstraintValueModels);
                         }
                         else
                             consentRendererComponent.type = 'unknown';
@@ -293,7 +293,7 @@ export class AppComponent
 
     private saveConsentRenderer(consentRendererId: string, consentTypeId: string, consentRendererType: string, consentRendererDef: ConsentRendererDef): void
     {
-        this.consentRendererDefLoaderService.postConsentRendererDef(consentRendererId, consentTypeId, consentRendererType, consentRendererDef)
+        this.consentRendererDefLoaderService.postConsentRendererDef(consentRendererId, consentTypeId, consentRendererType, consentRendererDef.toObject())
             .then
             (
                 (consentRendererDef) =>
