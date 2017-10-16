@@ -19,7 +19,10 @@ import { ConsentRendererComponentModel } from './model/consent-renderercomponent
 import { ConsentRendererComponentsModel } from './model/consent-renderercomponents-model';
 import { ConsentConstraintValuesModel } from './model/consent-constraintvalues-model';
 import { ConsentConstraintValueModel } from './model/consent-constraintvalue-model';
+import { ConsentRendererDef } from './datasources/consent-renderer-def';
+import { DescriptionRendererDef } from './datasources/description-renderer-def';
 import { TextComponentRendererDef } from './datasources/text-component-renderer-def';
+import { ValueTextComponentRendererDef } from './datasources/value-text-component-renderer-def';
 import { ConstraintComponentRendererDef } from './datasources/constraint-component-renderer-def';
 import { ValueConstraintComponentRendererDef } from './datasources/value-constraint-component-renderer-def';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
@@ -88,6 +91,62 @@ export class AppComponent
     public setConsentRendererComponent(event): void
     {
         this.consentRendererComponent = event;
+    }
+
+    public doUpdateConsentRenderer(): void
+    {
+        const consentRendererDef: ConsentRendererDef = new ConsentRendererDef();
+        consentRendererDef.id = this.consentRendererId;
+        consentRendererDef.descriptionRendererDefs             = [];
+        consentRendererDef.descriptionRendererDefs[0]          = new DescriptionRendererDef();
+        consentRendererDef.descriptionRendererDefs[0].selector = 'lang=en-GB';
+        consentRendererDef.descriptionRendererDefs[0].text     = this.consentRendererName;
+
+        consentRendererDef.componentRendererDefs = [];
+        for (const consentRendererComponent of this.consentRendererComponents.data)
+        {
+            if (consentRendererComponent.type === 'text')
+            {
+                const textComponentRendererDef: TextComponentRendererDef = new TextComponentRendererDef();
+
+                textComponentRendererDef.valueTextComponentRendererDefs             = [];
+                textComponentRendererDef.valueTextComponentRendererDefs[0]          = new ValueTextComponentRendererDef();
+                textComponentRendererDef.valueTextComponentRendererDefs[0].selector = 'lang=en-GB';
+                textComponentRendererDef.valueTextComponentRendererDefs[0].text     = consentRendererComponent.text;
+
+                consentRendererDef.componentRendererDefs.push(textComponentRendererDef);
+            }
+            else if (consentRendererComponent.type === 'constraint')
+            {
+                const constraintComponentRendererDef: ConstraintComponentRendererDef = new ConstraintComponentRendererDef();
+
+                constraintComponentRendererDef.id = consentRendererComponent.id;
+
+                constraintComponentRendererDef.descriptionRendererDefs             = [];
+                constraintComponentRendererDef.descriptionRendererDefs[0]          = new DescriptionRendererDef();
+                constraintComponentRendererDef.descriptionRendererDefs[0].selector = 'lang=en-GB';
+                constraintComponentRendererDef.descriptionRendererDefs[0].text     = consentRendererComponent.name;
+
+                constraintComponentRendererDef.valueConstraintComponentRendererDefs = [];
+                for (const constraintValue of consentRendererComponent.constraintValuesModel.data)
+                {
+                    const valueConstraintComponentRendererDef: ValueConstraintComponentRendererDef = new ValueConstraintComponentRendererDef();
+
+                    valueConstraintComponentRendererDef.id = constraintValue.id;
+
+                    valueConstraintComponentRendererDef.descriptionRendererDefs             = [];
+                    valueConstraintComponentRendererDef.descriptionRendererDefs[0]          = new DescriptionRendererDef();
+                    valueConstraintComponentRendererDef.descriptionRendererDefs[0].selector = 'lang=en-GB';
+                    valueConstraintComponentRendererDef.descriptionRendererDefs[0].text     = constraintValue.text;
+
+                    constraintComponentRendererDef.valueConstraintComponentRendererDefs.push(valueConstraintComponentRendererDef);
+                }
+
+                consentRendererDef.componentRendererDefs.push(constraintComponentRendererDef);
+            }            
+        }
+
+        this.saveConsentRenderer(this.consentRendererId, this.consentTypeId, 'StyleA', consentRendererDef);
     }
 
     public doGenerateId(): void
@@ -228,6 +287,24 @@ export class AppComponent
                     this.consentRendererComponent  = new ConsentRendererComponentModel();
                     this.consentDetail             = '';
                     this.consentPurpose            = '';
+                }
+            );
+    }
+
+    private saveConsentRenderer(consentRendererId: string, consentTypeId: string, consentRendererType: string, consentRendererDef: ConsentRendererDef): void
+    {
+        this.consentRendererDefLoaderService.postConsentRendererDef(consentRendererId, consentTypeId, consentRendererType, consentRendererDef)
+            .then
+            (
+                (consentRendererDef) =>
+                {
+                    console.log('Responce[' + JSON.stringify(consentRendererDef) + ']');
+                }
+            )
+            .catch
+            (
+                () =>
+                {
                 }
             );
     }

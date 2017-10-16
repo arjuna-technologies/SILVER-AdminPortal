@@ -44,6 +44,14 @@ export class ConsentRendererDefLoaderService
                    .catch((response) => Promise.resolve(this.getConsentRendererDefErrorHandler(response)));
     }
 
+    public postConsentRendererDef(consentRendererId: string, consentTypeId: string, consentRendererType: string, consentRendererDef: ConsentRendererDef): Promise<boolean>
+    {
+        return this.http.post(this.datasourcesConfigService.setConsentRendererDefLoaderBaseURL + '/' + consentRendererId + '?consenttypeid=' + consentTypeId +'&consentrenderertype=' + consentRendererType, consentRendererDef)
+                   .toPromise()
+                   .then((response) => Promise.resolve(this.postConsentRendererDefSuccessHandler(response)))
+                   .catch((response) => Promise.resolve(this.postConsentRendererDefErrorHandler(response)));
+    }
+
     private getConsentRendererDefsSuccessHandler(response: Response): ConsentRendererDef[]
     {
         const consentRendererDefs: ConsentRendererDef[] = [];
@@ -80,5 +88,17 @@ export class ConsentRendererDefLoaderService
         console.log('Error while loading Consent Renderer: ' + (error.message || error));
 
         return null;
+    }
+
+    private postConsentRendererDefSuccessHandler(response: Response): boolean
+    {
+        return true;
+    }
+
+    private postConsentRendererDefErrorHandler(error: Response | any): boolean
+    {
+        console.log('Error while saveing Consent Renderer: ' + (error.message || error));
+
+        return false;
     }
 }

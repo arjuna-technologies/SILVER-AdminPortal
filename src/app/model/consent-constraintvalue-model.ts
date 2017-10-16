@@ -5,6 +5,8 @@
 //                     All rights reserved.
 //
 
+import { v4 } from 'uuid';
+
 export class ConsentConstraintValueModel
 {
     public id:   string;
@@ -14,5 +16,10 @@ export class ConsentConstraintValueModel
     {
          this.id   = '';
          this.text = '';
+    }
+
+    public doGenerateId(): void
+    {
+        this.id = v4();
     }
 }

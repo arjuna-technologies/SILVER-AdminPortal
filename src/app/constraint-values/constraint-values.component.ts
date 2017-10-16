@@ -26,7 +26,7 @@ export class ConstraintValuesComponent
         this.selectConstraintValue.emit(constraintValue);
     }
 
-    public doMoveUpRendererComponent(constraintValue: ConsentConstraintValueModel, event): boolean
+    public doMoveUpConstraintValue(constraintValue: ConsentConstraintValueModel, event): boolean
     {
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if (index > 0)
@@ -41,7 +41,7 @@ export class ConstraintValuesComponent
         return false;
     }
 
-    public doMoveDownRendererComponent(constraintValue: ConsentConstraintValueModel, event): boolean
+    public doMoveDownConstraintValue(constraintValue: ConsentConstraintValueModel, event): boolean
     {
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if ((index > -1) && ((index + 1 ) < this.consentConstraintValues.data.length))
@@ -56,7 +56,7 @@ export class ConstraintValuesComponent
         return false;
     }
 
-    public doAddAboveRendererComponent(constraintValue: ConsentConstraintValueModel, event): boolean
+    public doAddAboveConstraintValue(constraintValue: ConsentConstraintValueModel, event): boolean
     {
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if (index > -1)
@@ -77,7 +77,7 @@ export class ConstraintValuesComponent
         return false;
     }
 
-    public doAddBelowRendererComponent(constraintValue: ConsentConstraintValueModel, event): boolean
+    public doAddBelowConstraintValue(constraintValue: ConsentConstraintValueModel, event): boolean
     {
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if (index > -1)
@@ -98,7 +98,7 @@ export class ConstraintValuesComponent
         return false;
     }
 
-    public doRemoveRendererComponent(constraintValue: ConsentConstraintValueModel, event): boolean
+    public doRemoveConstraintValue(constraintValue: ConsentConstraintValueModel, event): boolean
     {
         if (this.consentConstraintValues.data.length > 1)
         {
