@@ -44,7 +44,7 @@ export class RendererComponentsComponent
     public doMoveDownRendererComponent(rendererComponent: ConsentRendererComponentModel, event): boolean
     {
         const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
-        if ((index > -1) && ((index + 1 ) < this.consentRendererComponents.data.length))
+        if ((index > -1) && ((index + 1) < this.consentRendererComponents.data.length))
         {
             this.consentRendererComponents.data[index]     = this.consentRendererComponents.data[index + 1];
             this.consentRendererComponents.data[index + 1] = rendererComponent;
