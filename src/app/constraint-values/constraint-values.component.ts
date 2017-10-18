@@ -61,16 +61,8 @@ export class ConstraintValuesComponent
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if (index > -1)
         {
-            const newConstraintValues: ConsentConstraintValueModel[] = [];
-
-            for (let count = 0; count < this.consentConstraintValues.data.length; count++)
-            {
-                if (count === index)
-                    newConstraintValues.push(new ConsentConstraintValueModel());
-                newConstraintValues.push(this.consentConstraintValues.data[count]);
-            }
-
-            this.consentConstraintValues = new ConsentConstraintValuesModel(newConstraintValues);
+            this.consentConstraintValues.data.splice(index, 0, new ConsentConstraintValueModel());
+            this.consentConstraintValues = new ConsentConstraintValuesModel(this.consentConstraintValues.data);
         }
 
         event.stopPropagation();
@@ -82,16 +74,8 @@ export class ConstraintValuesComponent
         const index = this.consentConstraintValues.data.indexOf(constraintValue, 0);
         if (index > -1)
         {
-            const newConstraintValues: ConsentConstraintValueModel[] = [];
-
-            for (let count = 0; count < this.consentConstraintValues.data.length; count++)
-            {
-                newConstraintValues.push(this.consentConstraintValues.data[count]);
-                if (count === index)
-                    newConstraintValues.push(new ConsentConstraintValueModel());
-            }
-
-            this.consentConstraintValues = new ConsentConstraintValuesModel(newConstraintValues);
+            this.consentConstraintValues.data.splice(index + 1, 0, new ConsentConstraintValueModel());
+            this.consentConstraintValues = new ConsentConstraintValuesModel(this.consentConstraintValues.data);
         }
 
         event.stopPropagation();

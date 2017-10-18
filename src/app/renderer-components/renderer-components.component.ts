@@ -61,16 +61,9 @@ export class RendererComponentsComponent
         const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
         if (index > -1)
         {
-            const newRendererComponents: ConsentRendererComponentModel[] = [];
+            this.consentRendererComponents.data.splice(index, 0, new ConsentRendererComponentModel());
 
-            for (let count = 0; count < this.consentRendererComponents.data.length; count++)
-            {
-                if (count === index)
-                    newRendererComponents.push(new ConsentRendererComponentModel());
-                newRendererComponents.push(this.consentRendererComponents.data[count]);
-            }
-
-            this.consentRendererComponents = new ConsentRendererComponentsModel(newRendererComponents);
+            this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
         }
 
         event.stopPropagation();
@@ -82,16 +75,9 @@ export class RendererComponentsComponent
         const index = this.consentRendererComponents.data.indexOf(rendererComponent, 0);
         if (index > -1)
         {
-            const newRendererComponents: ConsentRendererComponentModel[] = [];
+            this.consentRendererComponents.data.splice(index + 1, 0, new ConsentRendererComponentModel());
 
-            for (let count = 0; count < this.consentRendererComponents.data.length; count++)
-            {
-                newRendererComponents.push(this.consentRendererComponents.data[count]);
-                if (count === index)
-                    newRendererComponents.push(new ConsentRendererComponentModel());
-            }
-
-            this.consentRendererComponents = new ConsentRendererComponentsModel(newRendererComponents);
+            this.consentRendererComponents = new ConsentRendererComponentsModel(this.consentRendererComponents.data);
         }
 
         event.stopPropagation();

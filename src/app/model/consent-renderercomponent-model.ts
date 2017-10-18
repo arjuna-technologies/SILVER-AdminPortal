@@ -5,6 +5,7 @@
 //                     All rights reserved.
 //
 
+import { ConsentConstraintValueModel } from './consent-constraintvalue-model';
 import { ConsentConstraintValuesModel } from './consent-constraintvalues-model';
 
 export class ConsentRendererComponentModel
@@ -23,8 +24,10 @@ export class ConsentRendererComponentModel
 
          this.text = '';
 
-         this.id                    = '';
-         this.name                  = '';
-         this.constraintValuesModel = new ConsentConstraintValuesModel([]);
+         this.id                            = '';
+         this.name                          = '';
+         this.constraintValuesModel         = new ConsentConstraintValuesModel([]);
+         this.constraintValuesModel.data    = [];
+         this.constraintValuesModel.data[0] = new ConsentConstraintValueModel();
     }
 }
