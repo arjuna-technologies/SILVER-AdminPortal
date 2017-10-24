@@ -19,123 +19,135 @@
     </button>
 </mat-toolbar>
 
-<mat-card *ngIf="username">
-    <mat-card-title *ngIf="! consentTypeId">Available Consent Types</mat-card-title>
-    <mat-card-content *ngIf="! consentTypeId">
-        <mat-table [dataSource]="consentTypes">
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-button (click)="loadConsentRenderer(row)">
-                        <mat-icon>content_copy</mat-icon>
-                        <span> {{row.name}} </span>
-                    </button>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="creatable">
-                <mat-header-cell *matHeaderCellDef> Creatable </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <mat-icon *ngIf="! row.creatable">check_box_outline_blank</mat-icon>
-                    <mat-icon *ngIf="row.creatable">check_box</mat-icon>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="active">
-                <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <mat-icon *ngIf="! row.active">check_box_outline_blank</mat-icon>
-                    <mat-icon *ngIf="row.active">check_box</mat-icon>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-raised-button>
-                        <mat-icon>pause_circle_outline</mat-icon>
-                        <span> Unpublish </span>
-                    </button>
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active', 'actions' ]"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active', 'actions' ]"></mat-row>
-        </mat-table>
-        <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
-            <mat-paginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
-        </div>
-    </mat-card-content>
-    <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
-    <mat-card-content *ngIf="consentTypeId">
-        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Name:</b><span fxFlex>{{consentTypeName}}</span></div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Id:</b><span fxFlex>{{consentTypeId}}</span></div>
-        <mat-tab-group>
-            <mat-tab label="Consent Renderer">
-                <mat-card>
-                    <mat-card-content>
-                        <mat-form-field fxFill>
-                            <input matInput placeholder="Renderer Name" type="text" [(ngModel)]="consentRendererName">
-                        </mat-form-field>
-                        <div fxLayout="row" fxLayoutAlign="space-between center" fxFill>
-                            <mat-form-field fxFlex="85">
-                                <input matInput placeholder="Id" type="text" [(ngModel)]="consentRendererId">
-                            </mat-form-field>
-                            <button mat-raised-button (click)="doGenerateId()" fxFlex="10">
-                                <mat-icon>refresh</mat-icon><span> Generate </span>
+<mat-tab-group *ngIf="username">
+    <mat-tab label="Consent Types Editor">
+        <mat-card>
+            <mat-card-title *ngIf="! consentTypeId">Available Consent Types</mat-card-title>
+            <mat-card-content *ngIf="! consentTypeId">
+                <mat-table [dataSource]="consentTypes">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-button (click)="loadConsentRenderer(row)">
+                                <mat-icon>content_copy</mat-icon>
+                                <span> {{row.name}} </span>
                             </button>
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-                            <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents" (selectRendererComponent)="setConsentRendererComponent($event)"></silver-renderer-components>
-                            <silver-renderer-component fxFlex="50" [(consentRendererComponent)]="consentRendererComponent"></silver-renderer-component>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                            <button mat-raised-button color="primary" (click)="doUpdateConsentRenderer()">
-                                <mat-icon>add</mat-icon><span> Update Consent Renderer </span>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="creatable">
+                        <mat-header-cell *matHeaderCellDef> Creatable </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <mat-icon *ngIf="! row.creatable">check_box_outline_blank</mat-icon>
+                            <mat-icon *ngIf="row.creatable">check_box</mat-icon>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="active">
+                        <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <mat-icon *ngIf="! row.active">check_box_outline_blank</mat-icon>
+                            <mat-icon *ngIf="row.active">check_box</mat-icon>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-raised-button>
+                                <mat-icon>pause_circle_outline</mat-icon>
+                                <span> Unpublish </span>
                             </button>
-                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
-                                <mat-icon>clear</mat-icon><span> Cancel </span>
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-tab>
-            <mat-tab label="Consent Detail">
-                <mat-card>
-                    <mat-card-content>
-                        <mat-form-field fxFill>
-                            <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text">{{consentDetail}}</textarea>
-                        </mat-form-field>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                            <button mat-raised-button color="primary" (click)="doUpdateConsentDetail()">
-                                <mat-icon>add</mat-icon><span> Update Consent Detail </span>
-                            </button>
-                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
-                                <mat-icon>clear</mat-icon><span> Cancel </span>
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-tab>
-            <mat-tab label="Consent Purpose">
-                <mat-card>
-                    <mat-card-content>
-                        <mat-form-field fxFill>
-                            <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
-                        </mat-form-field>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                            <button mat-raised-button color="primary" (click)="doUpdateConsentPurpose()">
-                                <mat-icon>add</mat-icon><span> Update Consent Purpose </span>
-                            </button>
-                            <button mat-raised-button color="primary" (click)="doUpdateCancel()">
-                                <mat-icon>clear</mat-icon><span> Cancel </span>
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card-content>
-</mat-card>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active', 'actions' ]"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active', 'actions' ]"></mat-row>
+                </mat-table>
+                <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
+                    <mat-paginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+                </div>
+            </mat-card-content>
+            <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
+            <mat-card-content *ngIf="consentTypeId">
+                <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Name:</b><span fxFlex>{{consentTypeName}}</span></div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Id:</b><span fxFlex>{{consentTypeId}}</span></div>
+                <mat-tab-group>
+                    <mat-tab label="Consent Renderer">
+                        <mat-card>
+                            <mat-card-content>
+                                <mat-form-field fxFill>
+                                    <input matInput placeholder="Renderer Name" type="text" [(ngModel)]="consentRendererName">
+                                </mat-form-field>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxFill>
+                                    <mat-form-field fxFlex="85">
+                                        <input matInput placeholder="Id" type="text" [(ngModel)]="consentRendererId">
+                                    </mat-form-field>
+                                    <button mat-raised-button (click)="doGenerateId()" fxFlex="10">
+                                        <mat-icon>refresh</mat-icon><span> Generate </span>
+                                    </button>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+                                    <silver-renderer-components fxFlex="50" [(consentRendererComponents)]="consentRendererComponents" (selectRendererComponent)="setConsentRendererComponent($event)"></silver-renderer-components>
+                                    <silver-renderer-component fxFlex="50" [(consentRendererComponent)]="consentRendererComponent"></silver-renderer-component>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                                    <button mat-raised-button color="primary" (click)="doUpdateConsentRenderer()">
+                                        <mat-icon>add</mat-icon><span> Update Consent Renderer </span>
+                                    </button>
+                                    <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                        <mat-icon>clear</mat-icon><span> Cancel </span>
+                                    </button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </mat-tab>
+                    <mat-tab label="Consent Detail">
+                        <mat-card>
+                            <mat-card-content>
+                                <mat-form-field fxFill>
+                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text">{{consentDetail}}</textarea>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                                    <button mat-raised-button color="primary" (click)="doUpdateConsentDetail()">
+                                        <mat-icon>add</mat-icon><span> Update Consent Detail </span>
+                                    </button>
+                                    <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                        <mat-icon>clear</mat-icon><span> Cancel </span>
+                                    </button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </mat-tab>
+                    <mat-tab label="Consent Purpose">
+                        <mat-card>
+                            <mat-card-content>
+                                <mat-form-field fxFill>
+                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text">{{consentPurpose}}</textarea>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                                    <button mat-raised-button color="primary" (click)="doUpdateConsentPurpose()">
+                                        <mat-icon>add</mat-icon><span> Update Consent Purpose </span>
+                                    </button>
+                                    <button mat-raised-button color="primary" (click)="doUpdateCancel()">
+                                        <mat-icon>clear</mat-icon><span> Cancel </span>
+                                    </button>
+                                </div>
+                            </mat-card-actions>
+                        </mat-card>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Consent Feature Groups Editor">
+        <mat-card>
+            <mat-card-title>Consent Feature Groups Editor</mat-card-title>
+            <mat-card-content>
+                <silver-ontology-editor></silver-ontology-editor>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

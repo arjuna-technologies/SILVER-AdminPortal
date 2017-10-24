@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <mat-list fxFlex="30">
+        <h3 matSubHeader>Feature Groups</h3>
+        <mat-list-item *ngFor="let type of types" (click)="doSelectType(type)">
+            <mat-icon *ngIf="type === selectedType" color="primary">layers</mat-icon>
+            <mat-icon *ngIf="type !== selectedType">layers</mat-icon>
+            <span> {{type}} </span>
+        </mat-list-item>
+    </mat-list>
+    <mat-list fxFlex="30">
+        <h3 matSubHeader>{{selectedType}}</h3>
+        <mat-list-item *ngFor="let instanceSet of instanceSets" (click)="doSelectInstanceSet(instanceSet)">
+            <mat-icon *ngIf="instanceSet === selectedInstanceSet" color="primary">collections</mat-icon>
+            <mat-icon *ngIf="instanceSet !== selectedInstanceSet">collections</mat-icon>
+            <span> {{instanceSet}} </span>
+        </mat-list-item>
+    </mat-list>
+    <mat-selection-list fxFlex="30">
+        <h3 matSubHeader>{{selectedInstanceSet}}</h3>
+        <mat-list-option *ngFor="let instance of instances">
+            {{instance}} 
+        </mat-list-option>
+    </mat-selection-list>
+</div>

@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material';
 import { MatListModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
@@ -37,6 +38,7 @@ import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-
 import { RendererComponentComponent } from './renderer-component/renderer-component.component';
 import { RendererComponentsComponent } from './renderer-components/renderer-components.component';
 import { ConstraintValuesComponent } from './constraint-values/constraint-values.component';
+import { OntologyEditorComponent } from './ontology-editor/ontology-editor.component';
 
 @NgModule
 ({
@@ -47,7 +49,8 @@ import { ConstraintValuesComponent } from './constraint-values/constraint-values
         LoginFailureDialogComponent,
         RendererComponentComponent,
         RendererComponentsComponent,
-        ConstraintValuesComponent
+        ConstraintValuesComponent,
+        OntologyEditorComponent
     ],
     imports:
     [
@@ -63,6 +66,7 @@ import { ConstraintValuesComponent } from './constraint-values/constraint-values
         MatPaginatorModule,
         MatTabsModule,
         MatCardModule,
+        MatGridListModule,
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
