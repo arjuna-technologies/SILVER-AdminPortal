@@ -46,8 +46,8 @@ export class AppComponent
     public consentRendererName:       string;
     public consentRendererComponents: ConsentRendererComponentsModel;
     public consentRendererComponent:  ConsentRendererComponentModel;
-    public consentDetail:             string;
-    public consentPurpose:            string;
+    public consentDetails:            string;
+    public consentPurposes:           string;
 
     public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
     {
@@ -61,8 +61,8 @@ export class AppComponent
         this.consentRendererName       = '';
         this.consentRendererComponents = new ConsentRendererComponentsModel([]);
         this.consentRendererComponent  = new ConsentRendererComponentModel();
-        this.consentDetail             = '';
-        this.consentPurpose            = '';
+        this.consentDetails            = '';
+        this.consentPurposes           = '';
     }
 
     public openLoginDialog(): void
@@ -84,8 +84,8 @@ export class AppComponent
         this.consentRendererName       = '';
         this.consentRendererComponents = new ConsentRendererComponentsModel([]);
         this.consentRendererComponent  = new ConsentRendererComponentModel();
-        this.consentDetail             = '';
-        this.consentPurpose            = '';
+        this.consentDetails            = '';
+        this.consentPurposes           = '';
     }
 
     public setConsentRendererComponent(event): void
@@ -172,8 +172,8 @@ export class AppComponent
             this.consentRendererName       = '';
             this.consentRendererComponents = new ConsentRendererComponentsModel([]);
             this.consentRendererComponent  = new ConsentRendererComponentModel();
-            this.consentDetail             = '';
-            this.consentPurpose            = '';
+            this.consentDetails            = '';
+            this.consentPurposes           = '';
 
             const loginFailureDialogRef = this.dialog.open(LoginFailureDialogComponent);
         }
@@ -189,8 +189,8 @@ export class AppComponent
         this.consentRendererName       = '';
         this.consentRendererComponents = new ConsentRendererComponentsModel([]);
         this.consentRendererComponent  = new ConsentRendererComponentModel();
-        this.consentDetail             = '';
-        this.consentPurpose            = '';
+        this.consentDetails            = '';
+        this.consentPurposes           = '';
     }
 
     private loadConsentTypes(): void
@@ -273,8 +273,8 @@ export class AppComponent
                     this.consentRendererComponents = new ConsentRendererComponentsModel(consentRendererComponents);
                     this.consentRendererComponent  = consentRendererComponents[0];
 
-                    this.consentDetail  = '';
-                    this.consentPurpose = '';
+                    this.consentDetails  = '';
+                    this.consentPurposes = '';
                 }
             )
             .catch
@@ -285,8 +285,8 @@ export class AppComponent
                     this.consentRendererName       = '';
                     this.consentRendererComponents = new ConsentRendererComponentsModel([]);
                     this.consentRendererComponent  = new ConsentRendererComponentModel();
-                    this.consentDetail             = '';
-                    this.consentPurpose            = '';
+                    this.consentDetails            = '';
+                    this.consentPurposes           = '';
                 }
             );
     }

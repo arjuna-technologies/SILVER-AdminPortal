@@ -17,6 +17,12 @@ export class DatasourcesConfigService
     public setConsentRendererDefLoaderBaseURL: string;
     public getConsentRendererDefByTypesLoaderBaseURL: string;
 
+    public getConsentDetailsBaseURL: string;
+    public setConsentDetailsBaseURL: string;
+
+    public getConsentPurposesBaseURL: string;
+    public setConsentPurposesBaseURL: string;
+
     constructor()
     {
         this.consentServiceProtocol = 'http://';
@@ -34,6 +40,11 @@ export class DatasourcesConfigService
             this.getConsentRendererDefLoaderBaseURL        = 'assets/consentrenderer';
             this.setConsentRendererDefLoaderBaseURL        = 'assets/consentrenderer';
             this.getConsentRendererDefByTypesLoaderBaseURL = 'assets/consentrenderer';
+
+            this.getConsentDetailsBaseURL  = 'assets/consentdetails';
+            this.getConsentDetailsBaseURL  = 'assets/consentdetails';
+            this.getConsentPurposesBaseURL = 'assets/consentpurposes';
+            this.getConsentPurposesBaseURL = 'assets/consentpurposes';
         }
         else
         {
@@ -45,6 +56,11 @@ export class DatasourcesConfigService
             this.getConsentRendererDefLoaderBaseURL        = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consentrendererdef/consentrenderer';
             this.setConsentRendererDefLoaderBaseURL        = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consentrendererdef/consentrenderer';
             this.getConsentRendererDefByTypesLoaderBaseURL = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consentrendererdef/consentrenderer';
+
+            this.getConsentDetailsBaseURL  = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consenttypedetailsdef';
+            this.getConsentDetailsBaseURL  = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consenttypedetailsdef';
+            this.getConsentPurposesBaseURL = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consenttypepurposesdef';
+            this.getConsentPurposesBaseURL = this.consentServiceProtocol + this.consentServiceHostPort + '/consentengine/ws/consenttypepurposesdef';
         }
     }
 }

@@ -23,7 +23,7 @@ export class OntologyEditorComponent implements OnInit
             {
                 typename:         'Data Sets',
                 instancenames:    [ 'Arrest', 'Domestic Violance', 'Missing Children', 'School Attendance', 'School Terms' ],
-                instancesetnames: [ 'Police Data', 'Education Data' ],                
+                instancesetnames: [ 'Police Data', 'Education Data' ],
             },
             {
                 typename:         'Organisations',
@@ -58,7 +58,7 @@ export class OntologyEditorComponent implements OnInit
     ngOnInit()
     {
     }
- 
+
     public doSelectType(type: string): void
     {
         this.selectedType        = type;
