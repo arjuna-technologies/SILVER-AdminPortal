@@ -9,15 +9,11 @@ import { IOObject } from './io-object';
 
 export class ConsentTypeDetails implements IOObject
 {
-    public id:            string;
-    public consentTypeId: string;
-    public text:          string;
+    public text: string;
 
     public fromObject(object: any): boolean
     {
-        this.id            = object.id;
-        this.consentTypeId = object.consentTypeId;
-        this.text          = object.text;
+        this.text = object.text;
 
         return true;
     }
@@ -26,9 +22,7 @@ export class ConsentTypeDetails implements IOObject
     {
         const consentTypeDefObject: any = { };
 
-        consentTypeDefObject.id            = this.id;
-        consentTypeDefObject.consentTypeId = this.consentTypeId;
-        consentTypeDefObject.text          = this.text;
+        consentTypeDefObject.text = this.text;
 
         return consentTypeDefObject;
     }

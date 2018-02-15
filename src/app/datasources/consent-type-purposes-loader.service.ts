@@ -22,7 +22,7 @@ export class ConsentTypePurposesLoaderService
 
     public getConsentTypePurposes(consentTypeId: string): Promise<ConsentTypePurposes>
     {
-        return this.http.get(this.datasourcesConfigService.getConsentPurposesBaseURL + '/' + consentTypeId)
+        return this.http.get(this.datasourcesConfigService.getConsentTypePurposesLoaderBaseURL + '/' + consentTypeId)
                    .toPromise()
                    .then((response) => Promise.resolve(this.getConsentTypePurposesSuccessHandler(response)))
                    .catch((response) => Promise.resolve(this.getConsentTypePurposesErrorHandler(response)));
@@ -30,7 +30,7 @@ export class ConsentTypePurposesLoaderService
 
     public postConsentTypePurposes(consentTypeId: string, consentTypePurposes: ConsentTypePurposes): Promise<boolean>
     {
-        return this.http.post(this.datasourcesConfigService.setConsentPurposesBaseURL + '/' + consentTypeId, consentTypePurposes)
+        return this.http.post(this.datasourcesConfigService.setConsentTypePurposesLoaderBaseURL + '/' + consentTypeId, consentTypePurposes)
                    .toPromise()
                    .then((response) => Promise.resolve(this.postConsentTypePurposesSuccessHandler(response)))
                    .catch((response) => Promise.resolve(this.postConsentTypePurposesErrorHandler(response)));
@@ -40,7 +40,7 @@ export class ConsentTypePurposesLoaderService
     {
         const consentTypePurposes = new ConsentTypePurposes();
 
-        consentTypePurposes.fromObject(response.json());
+        consentTypePurposes.fromObject(response.json().purposesJSON);
 
         return consentTypePurposes;
     }

@@ -31,14 +31,16 @@ import { MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { LoginFailureDialogComponent } from './login-failure-dialog/login-failure-dialog.component';
-
-import { DatasourcesConfigService } from './config/datasources-config.service';
-import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
-import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
 import { RendererComponentComponent } from './renderer-component/renderer-component.component';
 import { RendererComponentsComponent } from './renderer-components/renderer-components.component';
 import { ConstraintValuesComponent } from './constraint-values/constraint-values.component';
 import { OntologyEditorComponent } from './ontology-editor/ontology-editor.component';
+
+import { DatasourcesConfigService } from './config/datasources-config.service';
+import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
+import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
+import { ConsentTypeDetailsLoaderService } from './datasources/consent-type-details-loader.service';
+import { ConsentTypePurposesLoaderService } from './datasources/consent-type-purposes-loader.service';
 
 @NgModule
 ({
@@ -82,7 +84,9 @@ import { OntologyEditorComponent } from './ontology-editor/ontology-editor.compo
     [
         DatasourcesConfigService,
         ConsentTypeDefLoaderService,
-        ConsentRendererDefLoaderService
+        ConsentRendererDefLoaderService,
+        ConsentTypeDetailsLoaderService,
+        ConsentTypePurposesLoaderService
     ],
     bootstrap:
     [

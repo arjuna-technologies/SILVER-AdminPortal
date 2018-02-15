@@ -22,7 +22,7 @@ export class ConsentTypeDetailsLoaderService
 
     public getConsentTypeDetails(consentTypeId: string): Promise<ConsentTypeDetails>
     {
-        return this.http.get(this.datasourcesConfigService.getConsentDetailsBaseURL + '/' + consentTypeId)
+        return this.http.get(this.datasourcesConfigService.getConsentTypeDetailsLoaderBaseURL + '/' + consentTypeId)
                    .toPromise()
                    .then((response) => Promise.resolve(this.getConsentTypeDetailsSuccessHandler(response)))
                    .catch((response) => Promise.resolve(this.getConsentTypeDetailsErrorHandler(response)));
@@ -30,7 +30,7 @@ export class ConsentTypeDetailsLoaderService
 
     public postConsentTypeDetails(consentTypeId: string, consentTypeDetails: ConsentTypeDetails): Promise<boolean>
     {
-        return this.http.post(this.datasourcesConfigService.setConsentDetailsBaseURL + '/' + consentTypeId, consentTypeDetails)
+        return this.http.post(this.datasourcesConfigService.setConsentTypeDetailsLoaderBaseURL + '/' + consentTypeId, consentTypeDetails)
                    .toPromise()
                    .then((response) => Promise.resolve(this.postConsentTypeDetailsSuccessHandler(response)))
                    .catch((response) => Promise.resolve(this.postConsentTypeDetailsErrorHandler(response)));
@@ -40,7 +40,7 @@ export class ConsentTypeDetailsLoaderService
     {
         const consentTypeDetails = new ConsentTypeDetails();
 
-        consentTypeDetails.fromObject(response.json());
+        consentTypeDetails.fromObject(response.json().detailsJSON);
 
         return consentTypeDetails;
     }

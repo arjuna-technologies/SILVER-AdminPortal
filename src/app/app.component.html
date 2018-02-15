@@ -104,12 +104,12 @@
                         <mat-card>
                             <mat-card-content>
                                 <mat-form-field fxFill>
-                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text">{{consentDetails}}</textarea>
+                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Detail Text" [(ngModel)]="consentDetails">"</textarea>
                                 </mat-form-field>
                             </mat-card-content>
                             <mat-card-actions>
                                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                                    <button mat-raised-button color="primary" (click)="doUpdateConsentDetail()">
+                                    <button mat-raised-button color="primary" [disabled]="consentDetailsSaveDisable" (click)="doUpdateConsentTypeDetails()">
                                         <mat-icon>add</mat-icon><span> Update Consent Detail </span>
                                     </button>
                                     <button mat-raised-button color="primary" (click)="doUpdateCancel()">
@@ -123,12 +123,12 @@
                         <mat-card>
                             <mat-card-content>
                                 <mat-form-field fxFill>
-                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text">{{consentPurposes}}</textarea>
+                                    <textarea matInput matTextareaAutosize matAutosizeMinRows="20" placeholder="Consent Purpose Text" [(ngModel)]="consentPurposes"></textarea>
                                 </mat-form-field>
                             </mat-card-content>
                             <mat-card-actions>
                                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                                    <button mat-raised-button color="primary" (click)="doUpdateConsentPurpose()">
+                                    <button mat-raised-button color="primary" [disabled]="consentPurposesSaveDisable" (click)="doUpdateConsentTypePurposes()">
                                         <mat-icon>add</mat-icon><span> Update Consent Purpose </span>
                                     </button>
                                     <button mat-raised-button color="primary" (click)="doUpdateCancel()">

@@ -25,8 +25,12 @@ import { TextComponentRendererDef } from './datasources/text-component-renderer-
 import { ValueTextComponentRendererDef } from './datasources/value-text-component-renderer-def';
 import { ConstraintComponentRendererDef } from './datasources/constraint-component-renderer-def';
 import { ValueConstraintComponentRendererDef } from './datasources/value-constraint-component-renderer-def';
+import { ConsentTypeDetails } from './datasources/consent-type-details';
+import { ConsentTypePurposes } from './datasources/consent-type-purposes';
 import { ConsentTypeDefLoaderService } from './datasources/consent-type-def-loader.service';
 import { ConsentRendererDefLoaderService } from './datasources/consent-renderer-def-loader.service';
+import { ConsentTypeDetailsLoaderService } from './datasources/consent-type-details-loader.service';
+import { ConsentTypePurposesLoaderService } from './datasources/consent-type-purposes-loader.service';
 
 @Component
 ({
@@ -38,31 +42,35 @@ export class AppComponent
 {
     public displayedColumns: string[];
 
-    public username:                  string;
-    public consentTypes:              ConsentTypesModel;
-    public consentTypeId:             string;
-    public consentTypeName:           string;
-    public consentRendererId:         string;
-    public consentRendererName:       string;
-    public consentRendererComponents: ConsentRendererComponentsModel;
-    public consentRendererComponent:  ConsentRendererComponentModel;
-    public consentDetails:            string;
-    public consentPurposes:           string;
+    public username:                   string;
+    public consentTypes:               ConsentTypesModel;
+    public consentTypeId:              string;
+    public consentTypeName:            string;
+    public consentRendererId:          string;
+    public consentRendererName:        string;
+    public consentRendererComponents:  ConsentRendererComponentsModel;
+    public consentRendererComponent:   ConsentRendererComponentModel;
+    public consentDetails:             string;
+    public consentDetailsSaveDisable:  boolean;
+    public consentPurposes:            string;
+    public consentPurposesSaveDisable: boolean;
 
-    public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService)
+    public constructor(private dialog: MatDialog, private consentTypeDefLoaderService: ConsentTypeDefLoaderService, private consentRendererDefLoaderService: ConsentRendererDefLoaderService, private consentTypeDetailsLoaderService: ConsentTypeDetailsLoaderService, private consentTypePurposesLoaderService: ConsentTypePurposesLoaderService)
     {
         this.displayedColumns = [ 'name', 'published', 'deprecated' ];
 
-        this.username                  = '';
-        this.consentTypes              = new ConsentTypesModel([]);
-        this.consentTypeId             = '';
-        this.consentTypeName           = '';
-        this.consentRendererId         = '';
-        this.consentRendererName       = '';
-        this.consentRendererComponents = new ConsentRendererComponentsModel([]);
-        this.consentRendererComponent  = new ConsentRendererComponentModel();
-        this.consentDetails            = '';
-        this.consentPurposes           = '';
+        this.username                   = '';
+        this.consentTypes               = new ConsentTypesModel([]);
+        this.consentTypeId              = '';
+        this.consentTypeName            = '';
+        this.consentRendererId          = '';
+        this.consentRendererName        = '';
+        this.consentRendererComponents  = new ConsentRendererComponentsModel([]);
+        this.consentRendererComponent   = new ConsentRendererComponentModel();
+        this.consentDetails             = '';
+        this.consentDetailsSaveDisable  = false;
+        this.consentPurposes            = '';
+        this.consentPurposesSaveDisable = false;
     }
 
     public openLoginDialog(): void
@@ -147,6 +155,28 @@ export class AppComponent
         }
 
         this.saveConsentRenderer(this.consentRendererId, this.consentTypeId, 'StyleA', consentRendererDef);
+    }
+
+    public doUpdateConsentTypeDetails(): void
+    {
+        const consentTypeDetails: ConsentTypeDetails = new ConsentTypeDetails();
+        consentTypeDetails.text = this.consentDetails;
+
+        this.consentDetailsSaveDisable = false;
+        this.consentTypeDetailsLoaderService.postConsentTypeDetails(this.consentTypeId, consentTypeDetails)
+            .then((result) => { this.consentDetailsSaveDisable = false; })
+            .catch((result) => { this.consentDetailsSaveDisable = false; });
+    }
+
+    public doUpdateConsentTypePurposes(): void
+    {
+        const consentTypePurposes: ConsentTypePurposes = new ConsentTypePurposes();
+        consentTypePurposes.text = this.consentPurposes;
+
+        this.consentPurposesSaveDisable = true;
+        this.consentTypePurposesLoaderService.postConsentTypePurposes(this.consentTypeId, consentTypePurposes)
+            .then((result) => { this.consentPurposesSaveDisable = false; })
+            .catch((result) => { this.consentPurposesSaveDisable = false; });
     }
 
     public doGenerateId(): void
@@ -273,8 +303,8 @@ export class AppComponent
                     this.consentRendererComponents = new ConsentRendererComponentsModel(consentRendererComponents);
                     this.consentRendererComponent  = consentRendererComponents[0];
 
-                    this.consentDetails  = '';
-                    this.consentPurposes = '';
+                    this.loadConsentTypeDetails(this.consentTypeId);
+                    this.loadConsentTypePurposes(this.consentTypeId);
                 }
             )
             .catch
@@ -287,6 +317,44 @@ export class AppComponent
                     this.consentRendererComponent  = new ConsentRendererComponentModel();
                     this.consentDetails            = '';
                     this.consentPurposes           = '';
+                }
+            );
+    }
+
+    private loadConsentTypeDetails(consentTypeId: string): void
+    {
+        this.consentTypeDetailsLoaderService.getConsentTypeDetails(consentTypeId)
+            .then
+            (
+                (consentTypeDetails) =>
+                {
+                    this.consentDetails = consentTypeDetails.text;
+                }
+            )
+            .catch
+            (
+                () =>
+                {
+                    this.consentDetails = '';
+                }
+            );
+    }
+
+    private loadConsentTypePurposes(consentTypeId: string): void
+    {
+        this.consentTypePurposesLoaderService.getConsentTypePurposes(consentTypeId)
+            .then
+            (
+                (consentTypePurposes) =>
+                {
+                    this.consentPurposes = consentTypePurposes.text;
+                }
+            )
+            .catch
+            (
+                () =>
+                {
+                    this.consentPurposes = '';
                 }
             );
     }
