@@ -104,7 +104,8 @@ export class AppComponent
     public doUpdateConsentRenderer(): void
     {
         const consentRendererDef: ConsentRendererDef = new ConsentRendererDef();
-        consentRendererDef.id = this.consentRendererId;
+        consentRendererDef.id                                  = this.consentRendererId;
+        consentRendererDef.consentTypeId                       = this.consentTypeId;
         consentRendererDef.descriptionRendererDefs             = [];
         consentRendererDef.descriptionRendererDefs[0]          = new DescriptionRendererDef();
         consentRendererDef.descriptionRendererDefs[0].selector = 'lang=en-GB';

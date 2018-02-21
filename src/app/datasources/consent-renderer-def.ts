@@ -13,20 +13,23 @@ import { ConstraintComponentRendererDef } from './constraint-component-renderer-
 
 export class ConsentRendererDef implements IOObject
 {
-    id:                      string;
-    descriptionRendererDefs: DescriptionRendererDef[];
-    componentRendererDefs:   ComponentRendererDef[];
+    public id:                      string;
+    public consentTypeId:           string;
+    public descriptionRendererDefs: DescriptionRendererDef[];
+    public componentRendererDefs:   ComponentRendererDef[];
 
     public constructor()
     {
         this.id                      = null;
+        this.consentTypeId           = null;
         this.descriptionRendererDefs = [];
         this.componentRendererDefs   = [];
     }
 
     public fromObject(object: any): boolean
     {
-        this.id = object.id;
+        this.id            = object.id;
+        this.consentTypeId = object.consenttypeid;
 
         this.descriptionRendererDefs = [];
         for (const descriptionRendererDefObject of object.descriptions)
@@ -61,7 +64,8 @@ export class ConsentRendererDef implements IOObject
     {
         const consentrenderer: any = { };
 
-        consentrenderer.id = this.id;
+        consentrenderer.id            = this.id;
+        consentrenderer.consenttypeid = this.consentTypeId;
 
         consentrenderer.descriptions = [];
         for (const descriptionRendererDef of this.descriptionRendererDefs)
