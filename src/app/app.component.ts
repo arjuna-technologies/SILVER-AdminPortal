@@ -101,6 +101,11 @@ export class AppComponent
         this.consentRendererComponent = event;
     }
 
+    public doCreateConsentType(): void
+    {
+//        this.saveConsentRenderer(this.consentRendererId, this.consentTypeId, 'StyleA', consentRendererDef);
+    }
+
     public doUpdateConsentRenderer(): void
     {
         const consentRendererDef: ConsentRendererDef = new ConsentRendererDef();

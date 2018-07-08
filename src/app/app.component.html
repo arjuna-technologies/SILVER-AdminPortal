@@ -64,6 +64,13 @@
                     <mat-paginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
                 </div>
             </mat-card-content>
+            <mat-card-actions *ngIf="! consentTypeId">
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
+                    <button mat-raised-button color="primary" (click)="doCreateConsentType()">
+                        <mat-icon>add</mat-icon><span> Create Consent Type</span>
+                    </button>
+                </div>
+            </mat-card-actions>
             <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
             <mat-card-content *ngIf="consentTypeId">
                 <div fxLayout="row" fxLayoutAlign="start center" fxFill><b fxFlex="10">Name:</b><span fxFlex>{{consentTypeName}}</span></div>
