@@ -19,6 +19,7 @@ import { ConsentRendererComponentModel } from './model/consent-renderercomponent
 import { ConsentRendererComponentsModel } from './model/consent-renderercomponents-model';
 import { ConsentConstraintValuesModel } from './model/consent-constraintvalues-model';
 import { ConsentConstraintValueModel } from './model/consent-constraintvalue-model';
+import { ConsentTypeDef } from './datasources/consent-type-def';
 import { ConsentRendererDef } from './datasources/consent-renderer-def';
 import { DescriptionRendererDef } from './datasources/description-renderer-def';
 import { TextComponentRendererDef } from './datasources/text-component-renderer-def';
@@ -103,7 +104,61 @@ export class AppComponent
 
     public doCreateConsentType(): void
     {
-//        this.saveConsentRenderer(this.consentRendererId, this.consentTypeId, 'StyleA', consentRendererDef);
+        const consentTypeId:     string = v4();
+        const consentRendererId: string = v4();
+
+        console.log('Consent Type Name ' + this.consentTypeName);
+
+        const consentTypeDef: ConsentTypeDef = new ConsentTypeDef();
+        consentTypeDef.id   = consentTypeId;
+        consentTypeDef.name = this.consentTypeName;
+        this.consentTypeDefLoaderService.setConsentTypeDef(consentTypeId, consentTypeDef)
+            .then((res) =>
+            {
+                console.log('Create ConsentType: Success ' + res);
+
+                this.consentTypeName = '';
+                this.loadConsentTypes();
+
+                const consentRendererDef: ConsentRendererDef = new ConsentRendererDef();
+                consentRendererDef.id                                  = consentRendererId;
+                consentRendererDef.consentTypeId                       = consentTypeId;
+                consentRendererDef.descriptionRendererDefs             = [];
+                consentRendererDef.descriptionRendererDefs[0]          = new DescriptionRendererDef();
+                consentRendererDef.descriptionRendererDefs[0].selector = 'lang=en-GB';
+                consentRendererDef.descriptionRendererDefs[0].text     = 'Default';
+                consentRendererDef.componentRendererDefs = [];
+                const textComponentRendererDef: TextComponentRendererDef = new TextComponentRendererDef();
+                textComponentRendererDef.valueTextComponentRendererDefs             = [];
+                textComponentRendererDef.valueTextComponentRendererDefs[0]          = new ValueTextComponentRendererDef();
+                textComponentRendererDef.valueTextComponentRendererDefs[0].selector = 'lang=en-GB';
+                textComponentRendererDef.valueTextComponentRendererDefs[0].text     = 'I consent to';
+                consentRendererDef.componentRendererDefs.push(textComponentRendererDef);
+
+                this.consentRendererDefLoaderService.postConsentRendererDef(consentRendererId, consentTypeId, 'StyleA', consentRendererDef.toObject())
+                    .then((res) =>
+                    {
+                        console.log('Create ConsentRenderer: Success ' + res);
+
+                        const consentTypeDetails: ConsentTypeDetails = new ConsentTypeDetails();
+                        consentTypeDetails.text = '';
+                        this.consentTypeDetailsLoaderService.postConsentTypeDetails(consentTypeId, consentTypeDetails)
+                            .then((res) =>
+                            {
+                                console.log('Create ConsentTypeDetails: Success ' + res);
+
+                                const consentTypePurposes: ConsentTypePurposes = new ConsentTypePurposes();
+                                consentTypePurposes.text = '';
+                                this.consentTypePurposesLoaderService.postConsentTypePurposes(consentTypeId, consentTypePurposes)
+                                    .then((res) => console.log('Create ConsentTypePurposes: Success ' + res))
+                                    .catch((res) => console.log('Create ConsentTypePurposes: Failed ' + res));
+                            })
+                            .catch((res) => console.log('Create ConsentTypeDetails: Failed ' + res));
+
+                    })
+                    .catch((res) => console.log('Create ConsentRenderer: Failed ' + res));
+            })
+            .catch((res) => console.log('Create ConsentType: Failed ' + res));
     }
 
     public doUpdateConsentRenderer(): void

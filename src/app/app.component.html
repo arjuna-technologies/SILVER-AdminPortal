@@ -60,15 +60,18 @@
                     <mat-header-row *matHeaderRowDef="[ 'name', 'creatable', 'active', 'actions' ]"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: [ 'name', 'creatable', 'active', 'actions' ]"></mat-row>
                 </mat-table>
-                <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
-                    <mat-paginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
-                </div>
+                <!-- div fxLayout="row" fxLayoutAlign="space-around stretch" fxFill>
+                    <mat-paginator #consentTypesPaginator [length]="consentTypes.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+                </div -->
             </mat-card-content>
             <mat-card-actions *ngIf="! consentTypeId">
                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap class="consent-actions">
-                    <button mat-raised-button color="primary" (click)="doCreateConsentType()">
+                    <button mat-raised-button color="primary" [disabled]="! consentTypeName" (click)="doCreateConsentType()">
                         <mat-icon>add</mat-icon><span> Create Consent Type</span>
                     </button>
+                    <mat-form-field fxFlex="35">
+                        <input matInput placeholder="Consent Type Name" type="text" [(ngModel)]="consentTypeName">
+                    </mat-form-field>
                 </div>
             </mat-card-actions>
             <mat-card-title *ngIf="consentTypeId">Consent Type</mat-card-title>
